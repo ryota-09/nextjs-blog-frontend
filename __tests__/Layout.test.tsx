@@ -20,6 +20,6 @@ describe('components/Layout.tsx', () => {
     await userEvent.click(screen.getByTestId('signin-nav'))
     expect(await screen.findByText('Sign In')).toBeInTheDocument()
     await userEvent.click(screen.getByTestId('home-nav'))
-    expect(await screen.findByText('Next Blog')).toBeInTheDocument()
+    expect(await screen.findByText('Hello Nextjs')).toBeInTheDocument()
   })
 })
