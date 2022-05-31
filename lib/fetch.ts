@@ -7,9 +7,9 @@ export const getAllArticles = async () => {
       new URL("http://demo8925424.mockable.io/test/allArticle")
     );
     console.log(response);
-    const articleList: Omit<Article, "body"> = await response.json();
+    const articleList = await response.json();
     return articleList;
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
 };
