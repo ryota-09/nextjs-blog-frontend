@@ -21,7 +21,7 @@ const axiosFetcher = async () => {
 /**
  * 記事一覧ページ.
  *
- * @param - SSGprops(記事リスト)
+ * @param - staticProps(記事リスト)
  * @returns - FC
  */
 const Home: React.FC<ArticleList> = ({ staticArticleList }) => {
