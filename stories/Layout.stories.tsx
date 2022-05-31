@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { within, userEvent } from '@storybook/testing-library'
-import Layout from '../components/Layout'
+import Layout from '../components/organisms/Layout'
 import { expect } from '@storybook/jest'
 
 export default { component: Layout } as ComponentMeta<typeof Layout>
