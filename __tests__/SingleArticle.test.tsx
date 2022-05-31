@@ -31,5 +31,33 @@ describe("organismas/SingleArticle.tsx", () => {
     expect(screen.getByText(dummyProps.sumary)).toBeInTheDocument();
   });
 
-  test("異常系: updatedAtがから文字列の時、createdAtが表示される。", () => {});
+  test("正常系: updatedAtが空文字列の時、createdAtが表示される。", () => {
+    dummyProps = {
+      id: 0,
+      title: "テストタイトル",
+      sumary: "テストサマリー",
+      imgPath: "https://source.unsplash.com/random",
+      createdAt: "テストcreatedTime",
+      updatedAt: "",
+    };
+    render(<SingleArticle {...dummyProps} />);
+    expect(screen.getByTestId("date-area").textContent).toEqual(
+      dummyProps.createdAt
+    );
+  });
+
+  test("正常系: updatedAtが存在する時、updatedAtが表示される。", () => {
+    dummyProps = {
+      id: 0,
+      title: "テストタイトル",
+      sumary: "テストサマリー",
+      imgPath: "https://source.unsplash.com/random",
+      createdAt: "テストcreatedTime",
+      updatedAt: "テストupdatedAt",
+    };
+    render(<SingleArticle {...dummyProps} />);
+    expect(screen.getByTestId("date-area").textContent).toEqual(
+      dummyProps.updatedAt
+    );
+  });
 });

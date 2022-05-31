@@ -8,7 +8,12 @@ export default { component: SingleArticle } as ComponentMeta<
 
 export const Index: ComponentStoryObj<typeof SingleArticle> = {
   args: {
-    
+    id: 0,
+      title: "テストタイトル",
+      sumary: "テストサマリー",
+      imgPath: "https://source.unsplash.com/random",
+      createdAt: "テストcreatedTime",
+      updatedAt: "テストupdatedTime",
   },
   play: async ({ canvasElement }) => {
     

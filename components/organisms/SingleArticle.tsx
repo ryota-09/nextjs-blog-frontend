@@ -1,5 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
+import BaseButton from "../atoms/Button/BaseButton";
+import { useRouter } from "next/router";
 
 type Props = {
   id: number;
@@ -9,14 +11,21 @@ type Props = {
   createdAt: string;
   updatedAt: string;
 };
-
+/**
+ * Home画面に表示される一つの記事を表すコンポーネント
+ * 
+ * @param - props 
+ * @returns - FC
+ */
 const SingleArticle: FC<Props> = ({
+  id,
   title,
   sumary,
   imgPath,
   createdAt,
-  updatedAt,
+  updatedAt = "",
 }) => {
+  const router = useRouter();
   return (
     <>
       <div className="sm:flex lg:items-start group">
@@ -30,7 +39,7 @@ const SingleArticle: FC<Props> = ({
           />
         </div>
         <div>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500" data-testid="date-area">
             {updatedAt === "" ? createdAt : updatedAt}
           </span>
           <p className="mt-3 text-lg font-medium leading-6">
@@ -41,9 +50,12 @@ const SingleArticle: FC<Props> = ({
               {title}
             </a>
           </p>
-          <p className="mt-2 text leading-normal text-gray-500">
-           {sumary}
-          </p>
+          <p className="mt-2 text leading-normal text-gray-500">{sumary}</p>
+          <div className="text-right mr-2 mb-2">
+            <BaseButton onClick={() => router.push(`/post/${id}`)}>
+              続きを読む
+            </BaseButton>
+          </div>
         </div>
       </div>
     </>

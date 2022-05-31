@@ -5,7 +5,7 @@ import { Content } from "./content";
  */
 export type Article = {
   //主キー
-  id: number;
+  id?: number;
   //記事タイトル
   title: string;
   //記事あらすじ

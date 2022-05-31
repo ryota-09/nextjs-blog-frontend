@@ -3,7 +3,7 @@
  */
 export type Content = {
   //主キー
-  id: number;
+  id?: number;
   //bodyのタイトル
   contentTitle: string;
   //bodyのimg
