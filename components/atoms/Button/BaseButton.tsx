@@ -6,7 +6,11 @@ type Props = {
   disabled?: boolean;
   onClick: () => void;
 };
-
+/**
+ * ボタンのコンポーネント.
+ * @params - props
+ * @returns - FC
+ */
 const BaseButton: FC<Props> = memo(
   ({ children, disabled = false, onClick }) => {
     return (
