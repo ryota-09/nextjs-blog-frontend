@@ -2,8 +2,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 import SingleArticle from "../components/organisms/SingleArticle";
-// import Post from '../components/Post'
-// import { POST } from '../types/Types'
+
 
 type Props = {
   id: number;

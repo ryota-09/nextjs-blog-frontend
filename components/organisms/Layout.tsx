@@ -2,9 +2,17 @@ import { FC } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
+//Headコンポーネント用の文字
 type Props = {
   tabTitle: string
 }
+
+/**
+ * headerを含むレイアウトのcomponent.
+ * 
+ * @param props
+ * @returns FC
+ */
 const Layout: FC<Props> = ({ tabTitle, children }) => {
   return (
     <>

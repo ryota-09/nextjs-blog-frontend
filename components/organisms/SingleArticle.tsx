@@ -5,11 +5,13 @@ type Props = {
   title: string;
   sumary: string;
   imgPath: string;
-}
+};
 
-const SingleArticle: FC<Props> = () => {
+const SingleArticle: FC<Props> = ({ title, sumary, imgPath }) => {
   return (
-    <></>
+    <>
+    
+    </>
   )
-}
+};
 export default SingleArticle;
