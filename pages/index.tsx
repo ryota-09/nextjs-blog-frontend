@@ -13,7 +13,7 @@ type ArticleList = {
 
 const axiosFetcher = async () => {
   const response = await axios.get<Omit<Article, "body">[]>(
-    "http://demo8925424.mockable.io/test/allArticle"
+    "http://demo8969917.mockable.io/allArticles"
   );
   return response.data;
 };
@@ -36,9 +36,6 @@ const Home: React.FC<ArticleList> = ({ staticArticleList }) => {
   );
   if (error) {
     return <span data-testid="error">Error</span>;
-  }
-  if (!articleList) {
-    alert("undefinde");
   }
   return (
     <Layout tabTitle="Next Blog">

@@ -1,15 +1,9 @@
 import fetch from "node-fetch";
-import { Article } from "../types/article";
 
 export const getAllArticles = async () => {
-  try {
-    const response = await fetch(
-      new URL("http://demo8925424.mockable.io/test/allArticle")
-    );
-    console.log(response);
-    const articleList = await response.json();
-    return articleList;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await fetch(
+    new URL("http://demo8969917.mockable.io/allArticles")
+  );
+  const articleList = await response.json();
+  return articleList;
 };
