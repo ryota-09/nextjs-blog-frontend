@@ -64,5 +64,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       staticArticles,
     },
+    // ISRの設定(60sで静的生成)
+    revalidate: 60,
   };
 };
