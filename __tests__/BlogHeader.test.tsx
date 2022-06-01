@@ -35,11 +35,11 @@ describe("organismas/BlogHeader.tsx", () => {
       summary: "テストブログsummary",
       imgPath: "https://source.unsplash.com/random",
       createdAt: "テストブログcreatedAt",
-      updatedAt: "テストブログupdatedAt",
+      updatedAt: "",
     };
     render(<BlogHeader {...dummyProps} />);
     expect(screen.getByTestId("date-area").textContent).toEqual(
-      dummyProps.createdAt
+      "投稿日時: " + dummyProps.createdAt
     );
   });
 
@@ -53,7 +53,7 @@ describe("organismas/BlogHeader.tsx", () => {
     };
     render(<BlogHeader {...dummyProps} />);
     expect(screen.getByTestId("date-area").textContent).toEqual(
-      dummyProps.updatedAt
+      "更新日時: " + dummyProps.updatedAt
     );
   });
 });

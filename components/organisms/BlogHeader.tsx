@@ -24,7 +24,7 @@ const BlogHeader: FC<Props> = ({
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
               {title}
             </h1>
-            <p className="mb-8 leading-relaxed text-gray-400">
+            <p className="mb-8 leading-relaxed text-gray-400" data-testid="date-area">
               {updatedAt !== "" ? <span>更新日時: {updatedAt}</span> : <span>投稿日時: {createdAt}</span>}
             </p>
             <p>
