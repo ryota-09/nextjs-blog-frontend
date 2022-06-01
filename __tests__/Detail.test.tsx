@@ -62,3 +62,14 @@ afterAll(() => {
 })
 
 
+describe("pages/post/[id].tsx", () => {
+  test("正常系: indexページから詳細ページに正しく遷移する。", async () => {
+    const { page } = await getPage({
+      route: "/"
+    });
+    render(page);
+    expect(await screen.findByText("テストtitle1")).toBeInTheDocument();
+    await userEvent.click(screen.getAllByTestId("basebutton")[0]);
+    expect(await screen.findByText("詳細ページ")).toBeInTheDocument();
+  })
+})
