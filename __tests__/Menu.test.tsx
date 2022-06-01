@@ -5,7 +5,6 @@ import Menu from "../components/molecules/Menu";
 
 type Props = {
   menuTitle: string;
-  url: string;
   children?: ReactNode;
 }
 
@@ -14,7 +13,6 @@ describe("molcules/Menu.tsx", () => {
     let dummyProps: Props;
     dummyProps = {
       menuTitle: "dummy Title",
-      url: "/"
     }
     render(
       <Menu {...dummyProps}>
