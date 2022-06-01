@@ -23,11 +23,11 @@ const dummyArray: Content[] = [
 
 const EditMain: FC = () => {
   const [ contentArray, setContentArray ] = useState<Content[]>([...dummyArray]);
-  const [ content2Array, setContent2Array ] = useState<Content[]>([...dummyArray]);
+  const [ contentArrayToSave, setContentArrayToSave ] = useState<Content[]>([...dummyArray]);
   const [pushTrigger, setPushTrigger] = useState(false);
   const submit = () => {
     setContentArray([
-      ...content2Array
+      ...contentArrayToSave
     ])
   }
   useEffect(() => {
@@ -37,7 +37,7 @@ const EditMain: FC = () => {
     <>
     <h1>メイン</h1>
     {contentArray.map((content, index) => (
-      <EditBody key={index} isUpdated={false}  index={index} content={content} contentArray={content2Array} setContent2Array={setContent2Array}/>
+      <EditBody key={index} isUpdated={false}  index={index} content={content} contentArray={contentArray} setContentArrayToSave={setContentArrayToSave}/>
     ))}
     <button onClick={submit}>ボタン</button>
     </>

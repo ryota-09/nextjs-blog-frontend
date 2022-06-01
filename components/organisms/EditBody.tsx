@@ -8,16 +8,15 @@ type Props = {
   index: number;
   content: Content;
   contentArray: Content[];
-  setContent2Array: Dispatch<SetStateAction<Content[]>>;
+  setContentArrayToSave: Dispatch<SetStateAction<Content[]>>;
 };
 
 const EditBody: FC<Props> = memo(
-  ({ isUpdated, index, content, contentArray, setContent2Array }) => {
+  ({ isUpdated, index, content, contentArray, setContentArrayToSave }) => {
     const [contentTitle, setContentTitle] = useState("");
     const [contentImg, setContentImg] = useState("");
     const [contentBody, setContentBody] = useState("");
     const changeArray = () => {
-      console.log(`レンダリング${index}`);
       const newContentArray: Content[] = [];
       let updateContent: Content;
       for (let contentObj of contentArray) {
@@ -35,33 +34,57 @@ const EditBody: FC<Props> = memo(
           newContentArray.push(contentObj);
         }
       }
-      setContent2Array([...newContentArray]);
+      setContentArrayToSave([...newContentArray]);
     };
     return (
       <>
         <div onChange={changeArray}>
-          <span>Title</span>
-          <br />
-          <input
-            type="text"
-            onChange={(e) => setContentTitle(e.target.value)}
-          />
-          <br />
-          <span>Img</span>
-          <br />
-          <input type="text" onChange={(e) => setContentImg(e.target.value)} />
-          <br />
-          <span>Body</span>
-          <br />
-          <input type="text" onChange={(e) => setContentBody(e.target.value)} />
+          <section>
+            <div className=" flex flex-col items-center px-5 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+              <div className="flex flex-col w-full max-w-3xl mx-auto prose text-left prose-blue">
+                <div className="w-full mx-auto">
+                  <h3 className="text-xl font-bold">Cotent Title</h3>
+                  <input
+                    type="text"
+                    placeholder="タイトル"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => setContentTitle(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div className=" flex flex-col items-center px-5 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+              <div className="flex flex-col w-full max-w-3xl mx-auto prose text-left prose-blue">
+                <div className="w-full mx-auto">
+                  <h3 className="text-xl font-bold">Cotent Image</h3>
+                  <p>※ アルファベットで入力   &nbsp;&nbsp;&nbsp;例: apple</p>
+                  <input
+                    type="text"
+                    placeholder="Image"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => setContentImg(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div className=" flex flex-col items-center px-5 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+              <div className="flex flex-col w-full max-w-3xl mx-auto prose text-left prose-blue">
+                <div className="w-full mx-auto">
+                  <h3 className="text-xl font-bold">Cotent Body</h3>
+                  <textarea
+                    placeholder="内容"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => setContentBody(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-        <br />
-        {contentTitle}
-        <br />
-        {contentImg}
-        <br />
-        {contentBody}
-        <br />
       </>
     );
   }
