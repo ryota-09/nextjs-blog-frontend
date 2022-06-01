@@ -1,11 +1,21 @@
-import { defaultHead } from "next/head"
+import { defaultHead } from "next/head";
 import { FC } from "react";
+import BlogHeader from "../../components/organisms/BlogHeader";
+import Layout from "../../components/organisms/Layout";
 
 const ArticleDetail: FC = () => {
   return (
     <>
-      <h1>詳細ページ</h1>
+      <Layout tabTitle="詳細ページ">
+        <BlogHeader
+          title="テストブログtitle"
+          summary="テストブログsummaryテストブログsummaryテストブログsummaryテストブログsummaryテストブログsummaryテストブログsummaryテストブログsummaryテストブログsummaryテストブログsummaryテストブログsummary"
+          imgPath="https://source.unsplash.com/random"
+          createdAt="テストブログcreatedAt"
+          updatedAt="テストブログupdatedAt"
+        />
+      </Layout>
     </>
-  )
-}
+  );
+};
 export default ArticleDetail;
