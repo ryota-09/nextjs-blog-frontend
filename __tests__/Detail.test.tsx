@@ -44,32 +44,60 @@ const handlers = [
         imgPath: "テストimgPath1",
         createdAt: "テストcreatedAt1",
         updatedAt: "テストupdatedAt1",
+        body: [
+          {
+            id: 1,
+            contentTitle: "テストcontentTitle1",
+            contentImg: "テストcontentImg1",
+            contentBody: "テストcontentBody1",
+            orderNumber: 1,
+            articleId: 1,
+          },
+          {
+            id: 2,
+            contentTitle: "テストcontentTitle2",
+            contentImg: "テストcontentImg2",
+            contentBody: "テストcontentBody2",
+            orderNumber: 2,
+            articleId: 1,
+          },
+        ],
       })
     );
   }),
 ];
 
-const server = setupServer(...handlers)
+const server = setupServer(...handlers);
 beforeAll(() => {
-  server.listen()
-})
+  server.listen();
+});
 afterEach(() => {
-  server.restoreHandlers()
-  cleanup()
-})
+  server.restoreHandlers();
+  cleanup();
+});
 afterAll(() => {
-  server.close()
-})
-
+  server.close();
+});
 
 describe("pages/post/[id].tsx", () => {
   test("正常系: indexページから詳細ページに正しく遷移する。", async () => {
     const { page } = await getPage({
-      route: "/"
+      route: "/",
     });
     render(page);
     expect(await screen.findByText("テストtitle1")).toBeInTheDocument();
     await userEvent.click(screen.getAllByTestId("basebutton")[0]);
-    expect(await screen.findByText("詳細ページ")).toBeInTheDocument();
-  })
-})
+    expect(await screen.findByText("")).toBeInTheDocument();
+    expect(screen.getByText("テストcontentTitle1")).toBeInTheDocument();
+    expect(screen.getByText("テストcontentTitle2")).toBeInTheDocument();
+  });
+
+  test("正常系: 詳細ページからindexページに正しく遷移する。", async () => {
+    const { page } = await getPage({
+      route: "/post/1",
+    });
+    expect(await screen.findByText("テストtitle1")).toBeInTheDocument();
+    await userEvent.click(screen.getByTestId("back-to-home"));
+    expect(await screen.getByText("テストtitle2")).toBeInTheDocument();
+  });
+});
