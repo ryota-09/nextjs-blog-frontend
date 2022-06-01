@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/image"; 
 import { FC } from "react";
 
 type Props = {
@@ -9,6 +9,12 @@ type Props = {
   updatedAt: string;
 };
 
+/**
+ * 記事のヘッダー部分を表すコンポーネント.
+ *
+ * @params - props(記事のヘッダー)
+ * @returns - FC
+ */
 const BlogHeader: FC<Props> = ({
   title,
   summary,
