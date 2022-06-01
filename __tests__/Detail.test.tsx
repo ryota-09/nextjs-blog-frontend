@@ -96,6 +96,7 @@ describe("pages/post/[id].tsx", () => {
     const { page } = await getPage({
       route: "/post/1",
     });
+    render(page);
     expect(await screen.findByText("テストtitle1")).toBeInTheDocument();
     await userEvent.click(screen.getByTestId("back-to-home"));
     expect(await screen.getByText("テストtitle2")).toBeInTheDocument();
