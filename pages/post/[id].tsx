@@ -1,5 +1,6 @@
 import { defaultHead } from "next/head";
 import { FC } from "react";
+import BlogBody from "../../components/organisms/BlogBody";
 import BlogHeader from "../../components/organisms/BlogHeader";
 import Layout from "../../components/organisms/Layout";
 /**
@@ -18,6 +19,11 @@ const ArticleDetail: FC = () => {
           createdAt="テストブログcreatedAt"
           updatedAt="テストブログupdatedAt"
         />
+        <BlogBody contentTitle="テストボディーcontentTitle" contentImg="https://source.unsplash.com/random" contentBody="テストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテスト
+
+ボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディー
+
+contentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBodyテストボディーcontentBody"/>
       </Layout>
     </>
   );

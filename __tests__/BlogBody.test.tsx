@@ -14,13 +14,14 @@ describe("organismas/BlogBody.tsx", () => {
   beforeEach(() => {
     dummyProps = {
       contentTitle: "テストボディーcontentTitle",
-    contentImg: "テストボディーcontentImg",
-    contentBody: "テストボディーcontentBody",
+      contentImg: "/",
+      contentBody: "テストボディーcontentBody",
     };
   });
 
   test("正常系: propsで渡された値が正しくレンダリングされる。", () => {
     render(<BlogBody {...dummyProps} />);
+    screen.debug()
     expect(screen.getByText(dummyProps.contentTitle)).toBeInTheDocument();
     expect(screen.getByText(dummyProps.contentBody)).toBeInTheDocument();
   });

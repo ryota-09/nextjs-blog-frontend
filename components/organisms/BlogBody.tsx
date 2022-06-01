@@ -21,13 +21,13 @@ const BlogBody: FC<Props> = ({ contentTitle, contentImg, contentBody }) => {
             <h2 className="sm:text-4xl text-3xl mb-4 font-medium">{contentTitle}</h2>
           </div>
         </div>
-        <div className="container mx-auto flex px-5 md:flex-row flex-col items-center">
+        <div className="container mx-auto flex px-5 md:flex-row flex-col items-center text-center">
           <Image
-              className="container text-center object-cover object-center rounded"
+              className="container object-cover object-center rounded"
               src={contentImg}
               alt="blog-body-img"
-              height="30"
-              width="auto"
+              height="480px"
+              width="600px"
             />
         </div>
         <div className="container mx-auto flex px-5 mt-10 md:flex-row flex-col items-center">
