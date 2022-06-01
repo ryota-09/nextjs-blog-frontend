@@ -7,7 +7,7 @@ export default { component: BlogBody } as ComponentMeta<typeof BlogBody>;
 export const Index: ComponentStoryObj<typeof BlogBody> = {
   args: {
     contentTitle: "テストボディーcontentTitle",
-    contentImg: "テストボディーcontentImg",
+    contentImg: "https://source.unsplash.com/random",
     contentBody: "テストボディーcontentBody",
   },
   play: async ({ canvasElement }) => {},
