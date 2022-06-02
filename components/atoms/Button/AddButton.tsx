@@ -9,7 +9,7 @@ type Props = {
 /**
  * 記事のContentを追加するときのボタンコンポーネント.
  * 
- * @params - prosp(ボタンの表示名, クリックしたときのメソッド)
+ * @params - prosp(ボタンの表示名, クリックしたときのメソッド
  * @returns - FC
  */
 const AddButton: FC<Props> = memo(({ disabled, onClick }) => {

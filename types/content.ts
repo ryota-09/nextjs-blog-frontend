@@ -13,5 +13,5 @@ export type Content = {
   //bodyの順序
   orderNumber: number;
   //該当するarticleとの外部キー
-  articleId: number;
+  articleId?: number;
 };
