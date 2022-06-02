@@ -30,9 +30,6 @@ const EditMain: FC = () => {
       ...contentArrayToSave
     ])
   }
-  useEffect(() => {
-    console.log(contentArray)
-  }, [contentArray])
   return (
     <>
     <h1>メイン</h1>
