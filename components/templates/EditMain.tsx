@@ -25,7 +25,7 @@ const dummyArray: Content[] = [
 const EditMain: FC = () => {
   const [ contentArray, setContentArray ] = useState<Content[]>([...dummyArray]);
   const [ contentArrayToSave, setContentArrayToSave ] = useState<Content[]>([...dummyArray]);
-  const [pushTrigger, setPushTrigger] = useState(false);
+
   const submit = () => {
     setContentArray([
       ...contentArrayToSave

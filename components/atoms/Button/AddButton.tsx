@@ -1,4 +1,5 @@
-import { FC } from "react";
+/* eslint-disable react/display-name */
+import { FC, memo } from "react";
 
 type Props = {
   disabled?: boolean;
@@ -11,7 +12,7 @@ type Props = {
  * @params - prosp(ボタンの表示名, クリックしたときのメソッド)
  * @returns - FC
  */
-const AddButton: FC<Props> = ({ disabled, onClick }) => {
+const AddButton: FC<Props> = memo(({ disabled, onClick }) => {
   return (
     <>
     <div className="addButtonArea">
@@ -21,5 +22,5 @@ const AddButton: FC<Props> = ({ disabled, onClick }) => {
       </div>
     </>
   )
-}
+})
 export default AddButton;
