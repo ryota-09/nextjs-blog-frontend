@@ -1,10 +1,17 @@
 import '../styles/globals.css';
 import * as nextImage from 'next/image';
+import * as nextLink from 'next/link';
 
 // Imageコンポーネントのエラー解消のため
 Object.defineProperty(nextImage, 'default', {
   configurable: true,
   value: props => <img {...props} />
+});
+
+// Linkコンポーネントのエラー解消のため
+Object.defineProperty(nextLink, 'default', {
+  configurable: true,
+  value: props => <a {...props} />
 });
 
 export const parameters = {
