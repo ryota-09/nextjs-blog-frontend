@@ -1,6 +1,9 @@
 /* eslint-disable react/display-name */
+import axios from "axios";
 import { memo, useEffect, useState } from "react";
 import { Dispatch, FC, SetStateAction } from "react";
+
+import { Article } from "../../types/article";
 import { Content } from "../../types/content";
 
 type Props = {
@@ -11,6 +14,12 @@ type Props = {
   setContentArrayToSave: Dispatch<SetStateAction<Content[]>>;
 };
 
+/**
+ * Content部分のコンポーネント.
+ *
+ * @params - props
+ * @returns - FC
+ */
 const EditBody: FC<Props> = memo(
   ({ isUpdate, index, content, contentArray, setContentArrayToSave }) => {
     const [contentTitle, setContentTitle] = useState("");
@@ -18,7 +27,6 @@ const EditBody: FC<Props> = memo(
     const [contentBody, setContentBody] = useState("");
 
     const changeArray = () => {
-      console.log("index", index)
       const newContentArray: Content[] = [];
       let updateContent: Content;
       for (let contentObj of contentArray) {
@@ -36,9 +44,16 @@ const EditBody: FC<Props> = memo(
           newContentArray.push(contentObj);
         }
       }
-      console.log(newContentArray);
       setContentArrayToSave([...newContentArray]);
     };
+
+    useEffect(() => {
+      if (isUpdate) {
+        setContentTitle(content.contentTitle);
+        setContentImg(content.contentImg);
+        setContentBody(content.contentBody);
+      }
+    }, []);
 
     return (
       <>
@@ -52,6 +67,7 @@ const EditBody: FC<Props> = memo(
                     type="text"
                     placeholder="タイトル"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    value={contentTitle}
                     onChange={(e) => setContentTitle(e.target.value)}
                   />
                 </div>
@@ -63,25 +79,27 @@ const EditBody: FC<Props> = memo(
               <div className="flex flex-col w-full max-w-3xl mx-auto prose text-left prose-blue">
                 <div className="w-full mx-auto">
                   <h3 className="text-xl font-bold">Cotent Image</h3>
-                  <p>※ アルファベットで入力   &nbsp;&nbsp;&nbsp;例: apple</p>
+                  <p>※ アルファベットで入力 &nbsp;&nbsp;&nbsp;例: apple</p>
                   <input
                     type="text"
                     placeholder="Image"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    value={contentImg}
                     onChange={(e) => setContentImg(e.target.value)}
                   />
                 </div>
               </div>
             </div>
           </section>
-          <section>
+          <section className="">
             <div className=" flex flex-col items-center px-5 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
-              <div className="flex flex-col w-full max-w-3xl mx-auto prose text-left prose-blue">
+              <div className="flex flex-col w-full max-w-3xl mx-auto prose text-left prose-blue border-b-2 pb-20 border-blue-200">
                 <div className="w-full mx-auto">
                   <h3 className="text-xl font-bold">Cotent Body</h3>
                   <textarea
                     placeholder="内容"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    value={contentBody}
                     onChange={(e) => setContentBody(e.target.value)}
                   />
                 </div>
@@ -89,7 +107,6 @@ const EditBody: FC<Props> = memo(
             </div>
           </section>
         </div>
-        
       </>
     );
   }

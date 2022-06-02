@@ -36,24 +36,7 @@ const EditHeader: FC<Props> = ({
   setHeaderImg,
   setHeaderSummary,
 }) => {
-  // const { data: articleData, error } = useSWR(
-  //   "getArticleByArticleId",
-  //   axiosFetcher
-  // );
-  // if (!articleData || error) {
-  //   return <span>Error</span>;
-  // }
-  useEffect(() => {
-    const fn = async () => {
-      const response = await axiosFetcher();
-      setHeaderTitle(response.title);
-      setHeaderImg(response.imgPath);
-      setHeaderSummary(response.summary);
-    };
-    if (isUpdate) {
-      fn();
-    }
-  }, []);
+
   return (
     <>
       <div>

@@ -1,5 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import { useEditorContext } from "../../lib/useEditorPage";
+import { Article } from "../../types/article";
 import { Content } from "../../types/content";
 import AddButton from "../atoms/Button/AddButton";
 import BaseButton from "../atoms/Button/BaseButton";
@@ -7,22 +10,20 @@ import DeleteButton from "../atoms/Button/DeleteButton";
 import EditBody from "../organisms/EditBody";
 import EditHeader from "../organisms/EditHeader";
 
+const axiosFetcher = async () => {
+  const response = await axios.get<Article>(
+    "https://demo8969917.mockable.io/personal-media/23"
+  );
+  return response.data;
+};
+
 /**
  * 編集画面のメイン部分のコンポーネント.
  *
  * @returns - FC
  */
 const EditMain: FC = () => {
-  const [contentArray, setContentArray] = useState<Content[]>([
-    {
-      id: 0,
-      contentTitle: "",
-      contentImg: "",
-      contentBody: "",
-      orderNumber: 0,
-      articleId: 0,
-    },
-  ]);
+  const [contentArray, setContentArray] = useState<Content[]>([]);
   const [contentArrayToSave, setContentArrayToSave] = useState<Content[]>([]);
   const [headerTitle, setHeaderTitle] = useState("");
   const [headerImg, setHeaderImg] = useState("");
@@ -37,7 +38,8 @@ const EditMain: FC = () => {
       imgPath: headerImg,
       body: [...contentArrayToSave],
     };
-    console.log(postedArticle);
+    // ここにpost文
+    
   };
 
   const createNewContent = () => {
@@ -54,6 +56,7 @@ const EditMain: FC = () => {
       },
     ]);
   };
+
   useEffect(() => {
     const lastNum = contentArrayToSave.length;
     setContentArrayToSave([
@@ -68,6 +71,31 @@ const EditMain: FC = () => {
       },
     ]);
   }, [contentArray]);
+
+  useEffect(() => {
+    const setData = async () => {
+      const response = await axiosFetcher();
+      await setContentArray([...response.body]);
+      setHeaderTitle(response.title);
+      setHeaderImg(response.imgPath);
+      setHeaderSummary(response.summary);
+    };
+
+    if (editorPageState.isUpdate) {
+      setData();
+    } else {
+      setContentArray([
+        {
+          id: 0,
+          contentTitle: "",
+          contentImg: "",
+          contentBody: "",
+          orderNumber: 0,
+          articleId: 0,
+        }
+      ]);
+    }
+  }, []);
   return (
     <>
       <div>

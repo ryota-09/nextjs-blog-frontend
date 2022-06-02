@@ -22,7 +22,7 @@ export type EditorPageContextType = {
 export const editorPageContext = createContext({} as EditorPageContextType);
 
 const initialState: State = {
-  isUpdate: false,
+  isUpdate: true,
   editorPage: "",
 };
 
