@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Content } from "../../types/content";
 import AddButton from "../atoms/Button/AddButton";
 import EditBody from "../organisms/EditBody";
+import EditHeader from "../organisms/EditHeader";
 
 const EditMain: FC = () => {
   const [contentArray, setContentArray] = useState<Content[]>([
@@ -15,12 +16,20 @@ const EditMain: FC = () => {
     },
   ]);
   const [contentArrayToSave, setContentArrayToSave] = useState<Content[]>([]);
+  const [headerTitle, setHeaderTitle] = useState("");
+  const [headerImg, setHeaderImg] = useState("");
+  const [headerSummary, setHeaderSummary] = useState("");
 
   const createNewContent = () => {
     setContentArray([...contentArrayToSave]);
   };
   return (
     <>
+      <EditHeader
+        setHeaderTitle={setHeaderTitle}
+        setHeaderImg={setHeaderImg}
+        setHeaderSummary={setHeaderSummary}
+      />
       {contentArray.map((content, index) => (
         <EditBody
           key={index}
