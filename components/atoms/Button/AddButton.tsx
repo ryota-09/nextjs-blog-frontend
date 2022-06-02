@@ -1,25 +1,26 @@
-import { FC } from "react";
+/* eslint-disable react/display-name */
+import { FC, memo } from "react";
 
 type Props = {
   disabled?: boolean;
   onClick: () => void;
-}
+};
 
 /**
  * 記事のContentを追加するときのボタンコンポーネント.
- * 
- * @params - prosp(ボタンの表示名, クリックしたときのメソッド)
+ *
+ * @params - prosp(ボタンの表示名, クリックしたときのメソッド
  * @returns - FC
  */
-const AddButton: FC<Props> = ({ disabled, onClick }) => {
+const AddButton: FC<Props> = memo(({ disabled, onClick }) => {
   return (
     <>
-    <div className="addButtonArea">
-        <button className="addButton" onClick={onClick}>
+      <div className="addButtonArea">
+        <button className="addButton" data-testid="addbutton" onClick={onClick}>
           +
         </button>
       </div>
     </>
-  )
-}
+  );
+});
 export default AddButton;

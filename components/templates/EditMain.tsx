@@ -1,44 +1,61 @@
 import { FC, useEffect, useState } from "react";
 import { Content } from "../../types/content";
 import AddButton from "../atoms/Button/AddButton";
+import BaseButton from "../atoms/Button/BaseButton";
+import DeleteButton from "../atoms/Button/DeleteButton";
 import EditBody from "../organisms/EditBody";
+import EditHeader from "../organisms/EditHeader";
 
-const dummyArray: Content[] = [
-  {
-    id: 0,
-    contentTitle: "タイトル１",
-    contentImg: "/dummy",
-    contentBody: "ボディー１",
-    orderNumber: 0,
-    articleId: 0
-  },
-  {
-    id: 1,
-    contentTitle: "タイトル2",
-    contentImg: "/dummy",
-    contentBody: "ボディー2",
-    orderNumber: 1,
-    articleId: 0
-  }
-]
-
+/**
+ * 編集画面のメイン部分のコンポーネント.
+ * 
+ * @returns - FC
+ */
 const EditMain: FC = () => {
-  const [ contentArray, setContentArray ] = useState<Content[]>([...dummyArray]);
-  const [ contentArrayToSave, setContentArrayToSave ] = useState<Content[]>([...dummyArray]);
-  const [pushTrigger, setPushTrigger] = useState(false);
-  const submit = () => {
-    setContentArray([
-      ...contentArrayToSave
-    ])
-  }
+  const [contentArray, setContentArray] = useState<Content[]>([
+    {
+      id: 0,
+      contentTitle: "",
+      contentImg: "",
+      contentBody: "",
+      orderNumber: 0,
+      articleId: 0,
+    },
+  ]);
+  const [contentArrayToSave, setContentArrayToSave] = useState<Content[]>([]);
+  const [headerTitle, setHeaderTitle] = useState("");
+  const [headerImg, setHeaderImg] = useState("");
+  const [headerSummary, setHeaderSummary] = useState("");
+
+  const createNewContent = () => {
+    setContentArray([...contentArrayToSave]);
+  };
   return (
     <>
-    {contentArray.map((content, index) => (
-      <EditBody key={index} isUpdated={false}  index={index} content={content} contentArray={contentArray} setContentArrayToSave={setContentArrayToSave}/>
-    ))}
-    <AddButton onClick={() => {}}/>
-    <button onClick={submit}>ボタン</button>
+      <div>
+        <EditHeader
+          setHeaderTitle={setHeaderTitle}
+          setHeaderImg={setHeaderImg}
+          setHeaderSummary={setHeaderSummary}
+        />
+        {contentArray.map((content, index) => (
+          <EditBody
+            key={index}
+            isUpdated={false}
+            index={index}
+            content={content}
+            contentArray={contentArray}
+            setContentArrayToSave={setContentArrayToSave}
+          />
+        ))}
+        <div>
+          <AddButton onClick={createNewContent} />
+          <BaseButton onClick={() => {}}>新規作成</BaseButton>
+          <BaseButton onClick={() => {}}>更新する</BaseButton>
+          <DeleteButton onClick={() => {}}>削除する</DeleteButton>
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 export default EditMain;
