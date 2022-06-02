@@ -1,10 +1,26 @@
-import { Dispatch, FC, SetStateAction } from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import axios from "axios";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import useSWR from "swr";
+import { Article } from "../../types/article";
 
 type Props = {
+  isUpdate: boolean;
+  headerTitle: string;
+  headerSummary: string;
+  headerImg: string;
   setHeaderTitle: Dispatch<SetStateAction<string>>;
   setHeaderImg: Dispatch<SetStateAction<string>>;
   setHeaderSummary: Dispatch<SetStateAction<string>>;
 };
+
+const axiosFetcher = async () => {
+  const response = await axios.get<Article>(
+    "https://demo8969917.mockable.io/personal-media/23"
+  );
+  return response.data;
+};
+
 /**
  * 編集画面のヘッダー部分のコンポーネント.
  *
@@ -12,10 +28,32 @@ type Props = {
  * @returns - FC
  */
 const EditHeader: FC<Props> = ({
+  isUpdate,
+  headerTitle,
+  headerSummary,
+  headerImg,
   setHeaderTitle,
   setHeaderImg,
   setHeaderSummary,
 }) => {
+  // const { data: articleData, error } = useSWR(
+  //   "getArticleByArticleId",
+  //   axiosFetcher
+  // );
+  // if (!articleData || error) {
+  //   return <span>Error</span>;
+  // }
+  useEffect(() => {
+    const fn = async () => {
+      const response = await axiosFetcher();
+      setHeaderTitle(response.title);
+      setHeaderImg(response.imgPath);
+      setHeaderSummary(response.summary);
+    };
+    if (isUpdate) {
+      fn();
+    }
+  }, []);
   return (
     <>
       <div>
@@ -28,6 +66,7 @@ const EditHeader: FC<Props> = ({
                   type="text"
                   placeholder="タイトル"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  value={headerTitle}
                   onChange={(e) => setHeaderTitle(e.target.value)}
                 />
               </div>
@@ -44,6 +83,7 @@ const EditHeader: FC<Props> = ({
                   type="text"
                   placeholder="Image"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  value={headerImg}
                   onChange={(e) => setHeaderImg(e.target.value)}
                 />
               </div>
@@ -58,6 +98,7 @@ const EditHeader: FC<Props> = ({
                 <textarea
                   placeholder="内容"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  value={headerSummary}
                   onChange={(e) => setHeaderSummary(e.target.value)}
                 />
               </div>

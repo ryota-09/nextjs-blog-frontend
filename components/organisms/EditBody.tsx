@@ -4,7 +4,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 import { Content } from "../../types/content";
 
 type Props = {
-  isUpdated: boolean;
+  isUpdate: boolean;
   index: number;
   content: Content;
   contentArray: Content[];
@@ -12,11 +12,13 @@ type Props = {
 };
 
 const EditBody: FC<Props> = memo(
-  ({ isUpdated, index, content, contentArray, setContentArrayToSave }) => {
+  ({ isUpdate, index, content, contentArray, setContentArrayToSave }) => {
     const [contentTitle, setContentTitle] = useState("");
     const [contentImg, setContentImg] = useState("");
     const [contentBody, setContentBody] = useState("");
+
     const changeArray = () => {
+      console.log("index", index)
       const newContentArray: Content[] = [];
       let updateContent: Content;
       for (let contentObj of contentArray) {
@@ -34,8 +36,10 @@ const EditBody: FC<Props> = memo(
           newContentArray.push(contentObj);
         }
       }
+      console.log(newContentArray);
       setContentArrayToSave([...newContentArray]);
     };
+
     return (
       <>
         <div onChange={changeArray}>

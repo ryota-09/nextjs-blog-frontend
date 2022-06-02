@@ -17,7 +17,7 @@ const Menu: FC<Props> = memo(({ menuTitle, children }) => {
     <>
       <li>
         <div
-          className="inline-flex items-center w-full px-4 py-2 mt-1 text-base text-gray-900 transition duration-500 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-50"
+          className="inline-flex items-center w-full px-4 py-2 mt-1 text-base text-gray-900 transition duration-500 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-50 cursor-pointer"
           data-testid="menu-list"
         >
           {children ?? ""}
