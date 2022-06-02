@@ -2,7 +2,7 @@
 import { FC, memo, ReactNode } from "react";
 
 type Props = {
-  children: ReactNode;
+  children?: ReactNode;
   disabled?: boolean;
   onClick: () => void;
 };
@@ -16,8 +16,8 @@ const DeleteButton: FC<Props> = memo(
     return (
       <>
         <button
-          className="bg-transparent hover:bg-red-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-          data-testid="basebutton"
+          className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+          data-testid="deletebutton"
           onClick={onClick}
           disabled={disabled}
         >
