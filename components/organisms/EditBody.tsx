@@ -1,9 +1,7 @@
 /* eslint-disable react/display-name */
-import axios from "axios";
 import { memo, useEffect, useState } from "react";
 import { Dispatch, FC, SetStateAction } from "react";
 
-import { Article } from "../../types/article";
 import { Content } from "../../types/content";
 
 type Props = {

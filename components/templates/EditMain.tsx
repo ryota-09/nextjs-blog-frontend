@@ -39,7 +39,7 @@ const EditMain: FC = () => {
       body: [...contentArrayToSave],
     };
     // ここにpost文
-    
+
   };
 
   const createNewContent = () => {
@@ -91,7 +91,7 @@ const EditMain: FC = () => {
           contentImg: "",
           contentBody: "",
           orderNumber: 0,
-          articleId: 0,
+          articleId: 1,
         }
       ]);
     }

@@ -1,11 +1,27 @@
+import axios from "axios";
 import { FC } from "react";
+import useSWR from "swr";
+
+import { Article } from "../../types/article";
 import Menu from "../molecules/Menu";
+
+const axiosFetcher = async () => {
+  const response = await axios.get<Article[]>(
+    "http://demo8969917.mockable.io/allArticles"
+  );
+  return response.data;
+};
+
 /**
  * エディット画面のサイドバーを表すコンポーネント.
  *
  * @returns - FC
  */
 const EditSidebar: FC = () => {
+  const { data: articleList, error } = useSWR("fetchArticleList", axiosFetcher);
+  if (error) {
+    return <span>Error</span>;
+  }
   return (
     <>
       <div className="flex overflow-hidden bg-white rounded-lg">
@@ -13,10 +29,7 @@ const EditSidebar: FC = () => {
           <div className="flex flex-col w-64">
             <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r border-gray-50">
               <div className="flex flex-col items-center flex-shrink-0 px-4">
-                <div
-                  
-                  className="px-8 text-left focus:outline-none"
-                >
+                <div className="px-8 text-left focus:outline-none">
                   <h2 className="block p-2 text-xl font-medium tracking-tighter text-gray-900 transition duration-500 ease-in-out transform hover:text-gray-900">
                     Edit Menu
                   </h2>
@@ -28,7 +41,6 @@ const EditSidebar: FC = () => {
                     Create
                   </p>
                   <ul>
-                    {/* ここにマップ関数 */}
                     <Menu menuTitle="新規作成">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -48,8 +60,13 @@ const EditSidebar: FC = () => {
                     Update
                   </p>
                   <ul>
-                    {/* ここにマップ関数 */}
-                    <Menu menuTitle={`1. 記事タイトル`}></Menu>
+                    {articleList &&
+                      articleList.map((article, index) => (
+                        <Menu
+                          key={index}
+                          menuTitle={`${index + 1}. ${article.title}`}
+                        ></Menu>
+                      ))}
                   </ul>
                 </nav>
               </div>
