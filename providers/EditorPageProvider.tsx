@@ -26,7 +26,7 @@ const initialState: State = {
   editorPage: "",
 };
 
-const reducer = (state: State, action: Action) => {
+export const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case "TOGGLE_ISUPDATE":
       return {
