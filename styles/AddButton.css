@@ -1,0 +1,17 @@
+.addButton {
+  color: gray;
+  padding: 10px 25px;
+  border-radius: 9999px;
+  font-size: 30px;
+  background-color: lightblue;
+  box-shadow: 3px 3px 8px 1px gray;
+  cursor: pointer;
+  /* ゆっくり変化させるため。 */
+  transition: all 0.3s;
+}
+
+.addButton:hover {
+  box-shadow: none;
+  /* 押された表現。boxshadowの3px3pxぶんを消している。 */
+  transform: translate(3px, 3px);
+}
