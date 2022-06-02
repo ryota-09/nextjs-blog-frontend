@@ -1,6 +1,7 @@
 import axios from "axios";
 import { FC } from "react";
 import useSWR from "swr";
+import { useEditorContext } from "../../lib/useEditorPage";
 
 import { Article } from "../../types/article";
 import Menu from "../molecules/Menu";
@@ -19,9 +20,28 @@ const axiosFetcher = async () => {
  */
 const EditSidebar: FC = () => {
   const { data: articleList, error } = useSWR("fetchArticleList", axiosFetcher);
+  const { editorPageState, setUsereditorPageState } = useEditorContext();
+
   if (error) {
     return <span>Error</span>;
   }
+
+  const toUpdatePage = (articleId: number) => {
+    console.log("call")
+    setUsereditorPageState({
+      type: "TOGGLE_ISUPDATE",
+      payload: {
+        isUpdate: true,
+      },
+    });
+    setUsereditorPageState({
+      type: "SET_EDITORPAGEID",
+      payload: {
+        editorPageId: articleId,
+      },
+    });
+  };
+
   return (
     <>
       <div className="flex overflow-hidden bg-white rounded-lg">
@@ -41,7 +61,7 @@ const EditSidebar: FC = () => {
                     Create
                   </p>
                   <ul>
-                    <Menu menuTitle="新規作成">
+                    <Menu menuTitle="新規作成" onClick={() => {}}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"
@@ -65,6 +85,7 @@ const EditSidebar: FC = () => {
                         <Menu
                           key={index}
                           menuTitle={`${index + 1}. ${article.title}`}
+                          onClick={() => toUpdatePage(article.id ?? 0)}
                         ></Menu>
                       ))}
                   </ul>

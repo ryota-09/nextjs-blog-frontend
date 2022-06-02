@@ -3,14 +3,14 @@ import { createContext, Dispatch, FC, ReactNode } from "react";
 
 export type State = {
   isUpdate: boolean;
-  editorPage: string;
+  editorPageId: number;
 };
 
 export type Action = {
-  type: "TOGGLE_ISUPDATE" | "SET_EDITORPAGE";
+  type: "TOGGLE_ISUPDATE" | "SET_EDITORPAGEID";
   payload: {
     isUpdate?: boolean;
-    editorPage?: string;
+    editorPageId?: number;
   };
 };
 
@@ -22,8 +22,8 @@ export type EditorPageContextType = {
 export const editorPageContext = createContext({} as EditorPageContextType);
 
 const initialState: State = {
-  isUpdate: true,
-  editorPage: "",
+  isUpdate: false,
+  editorPageId: 0,
 };
 
 export const reducer = (state: State, action: Action) => {
@@ -31,12 +31,12 @@ export const reducer = (state: State, action: Action) => {
     case "TOGGLE_ISUPDATE":
       return {
         isUpdate: action.payload.isUpdate as boolean,
-        editorPage: state.editorPage,
+        editorPageId: state.editorPageId,
       };
-    case "SET_EDITORPAGE":
+    case "SET_EDITORPAGEID":
       return {
         isUpdate: state.isUpdate,
-        editorPage: action.payload.editorPage as string,
+        editorPageId: action.payload.editorPageId as number,
       };
     default:
       return state;

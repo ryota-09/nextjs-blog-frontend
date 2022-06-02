@@ -2,6 +2,7 @@
 import axios from "axios";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import useSWR from "swr";
+import { useEditorContext } from "../../lib/useEditorPage";
 import { Article } from "../../types/article";
 
 type Props = {
@@ -36,10 +37,11 @@ const EditHeader: FC<Props> = ({
   setHeaderImg,
   setHeaderSummary,
 }) => {
-
+  const { editorPageState } = useEditorContext();
   return (
     <>
       <div>
+      <h2>{editorPageState.isUpdate ? "Update" : "Create"}</h2>
         <section>
           <div className=" flex flex-col items-center px-5 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div className="flex flex-col w-full max-w-3xl mx-auto prose text-left prose-blue">
