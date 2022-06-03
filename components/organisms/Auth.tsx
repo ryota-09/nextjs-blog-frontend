@@ -1,9 +1,29 @@
+import axios from "axios";
+import { useRouter } from "next/router";
 import { FC, useState } from "react";
 
+/**
+ * ログイン関係を表すコンポーネント.
+ *
+ * @returns - FC
+ */
 const Auth: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const router = useRouter();
+
+  const login = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError("");
+    try {
+      const response = await axios.get("url");
+      router.push("/edit");
+    } catch (error) {
+      setError(`ログインできませんでした。( エラー: ${error} )`);
+    }
+  };
 
   return (
     <>
@@ -17,7 +37,7 @@ const Auth: FC = () => {
 
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="px-4 py-8 sm:px-10">
-              <form className="space-y-6" action="#" method="POST">
+              <form className="space-y-6" onSubmit={login}>
                 <div>
                   <label
                     htmlFor="email"
@@ -65,13 +85,14 @@ const Auth: FC = () => {
                 <div>
                   <button
                     type="submit"
-                    
-                    className="flex items-center justify-center w-full px-10 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-400 rounded-xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    disabled={!email || !password}
+                    className="flex items-center justify-center w-full px-10 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-400 rounded-xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     Login
                   </button>
                 </div>
               </form>
+              {error && <p className="mt-5 text-red-600">{error}</p>}
             </div>
           </div>
         </div>
