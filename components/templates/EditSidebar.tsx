@@ -20,7 +20,7 @@ const axiosFetcher = async () => {
  */
 const EditSidebar: FC = () => {
   const { data: articleList, error } = useSWR("fetchArticleList", axiosFetcher);
-  const { editorPageState, setUsereditorPageState } = useEditorContext();
+  const { editorPageState, setEditorPageState } = useEditorContext();
 
   if (error) {
     return <span>Error</span>;
@@ -28,13 +28,13 @@ const EditSidebar: FC = () => {
 
   const toUpdatePage = (articleId: number) => {
     console.log("call")
-    setUsereditorPageState({
+    setEditorPageState({
       type: "TOGGLE_ISUPDATE",
       payload: {
         isUpdate: true,
       },
     });
-    setUsereditorPageState({
+    setEditorPageState({
       type: "SET_EDITORPAGEID",
       payload: {
         editorPageId: articleId,

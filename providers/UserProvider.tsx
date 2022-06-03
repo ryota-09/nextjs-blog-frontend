@@ -1,42 +1,48 @@
 import { useReducer } from "react";
 import { createContext, Dispatch, FC, ReactNode } from "react";
+import { User } from "../types/user";
 
 export type State = {
-  isUpdate: boolean;
-  editorPageId: number;
+  isLogin: boolean;
+  user: User;
 };
 
 export type Action = {
-  type: "TOGGLE_ISUPDATE" | "SET_EDITORPAGEID";
+  type: "TOGGLE_ISLOGIN" | "SET_USER";
   payload: {
-    isUpdate?: boolean;
-    editorPageId?: number;
+    isLogin?: boolean;
+    user?: User;
   };
 };
 
-export type EditorPageContextType = {
-  editorPageState: State;
-  setUsereditorPageState: Dispatch<Action>;
+export type UserContextType = {
+  userState: State;
+  setUserState: Dispatch<Action>;
 };
 
-export const editorPageContext = createContext({} as EditorPageContextType);
+export const setUserContext = createContext({} as UserContextType);
 
 const initialState: State = {
-  isUpdate: false,
-  editorPageId: 0,
+  isLogin: false,
+  user: {
+    id: 0,
+    name: "",
+    email: "",
+    password: "",
+  },
 };
 
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case "TOGGLE_ISUPDATE":
+    case "TOGGLE_ISLOGIN":
       return {
-        isUpdate: action.payload.isUpdate as boolean,
-        editorPageId: state.editorPageId,
+        isLogin: action.payload.isLogin as boolean,
+        user: state.user,
       };
-    case "SET_EDITORPAGEID":
+    case "SET_USER":
       return {
-        isUpdate: state.isUpdate,
-        editorPageId: action.payload.editorPageId as number,
+        isLogin: state.isLogin,
+        user: action.payload.user as User,
       };
     default:
       return state;
@@ -47,17 +53,12 @@ type Props = {
   children: ReactNode;
 };
 
-const EditorPageProvider: FC<Props> = ({ children }) => {
-  const [editorPageState, setUsereditorPageState] = useReducer(
-    reducer,
-    initialState
-  );
+const UserProvider: FC<Props> = ({ children }) => {
+  const [userState, setUserState] = useReducer(reducer, initialState);
   return (
-    <editorPageContext.Provider
-      value={{ editorPageState, setUsereditorPageState }}
-    >
+    <setUserContext.Provider value={{ userState, setUserState }}>
       {children}
-    </editorPageContext.Provider>
+    </setUserContext.Provider>
   );
 };
-export default EditorPageProvider;
+export default UserProvider;

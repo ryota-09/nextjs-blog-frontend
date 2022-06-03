@@ -30,7 +30,7 @@ const EditMain: FC = () => {
   const [headerImg, setHeaderImg] = useState("");
   const [headerSummary, setHeaderSummary] = useState("");
 
-  const { editorPageState, setUsereditorPageState } = useEditorContext();
+  const { editorPageState, setEditorPageState } = useEditorContext();
 
   const postArticle = async () => {
     const postedArticle = {
