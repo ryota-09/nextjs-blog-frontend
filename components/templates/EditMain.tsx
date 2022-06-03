@@ -117,9 +117,20 @@ const EditMain: FC = () => {
           <div className="text-center">
             <AddButton onClick={createNewContent} />
           </div>
-          <BaseButton onClick={postArticle}>新規作成</BaseButton>
-          <BaseButton onClick={() => {}}>更新する</BaseButton>
-          <DeleteButton onClick={() => {}}>削除する</DeleteButton>
+          {editorPageState.isUpdate ? (
+            <div className="text-center mt-10 mb-10">
+              <span className="mr-5">
+                <BaseButton onClick={() => {}}>更新する</BaseButton>
+              </span>
+              <span className="ml-5">
+                <DeleteButton onClick={() => {}}>削除する</DeleteButton>
+              </span>
+            </div>
+          ) : (
+            <div className="text-center mt-10">
+              <BaseButton onClick={postArticle}>新規作成</BaseButton>
+            </div>
+          )}
         </div>
       </div>
     </>
