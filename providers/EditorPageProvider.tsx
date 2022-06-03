@@ -16,7 +16,7 @@ export type Action = {
 
 export type EditorPageContextType = {
   editorPageState: State;
-  setUsereditorPageState: Dispatch<Action>;
+  setEditorPageState: Dispatch<Action>;
 };
 
 export const editorPageContext = createContext({} as EditorPageContextType);
@@ -48,14 +48,12 @@ type Props = {
 };
 
 const EditorPageProvider: FC<Props> = ({ children }) => {
-  const [editorPageState, setUsereditorPageState] = useReducer(
+  const [editorPageState, setEditorPageState] = useReducer(
     reducer,
     initialState
   );
   return (
-    <editorPageContext.Provider
-      value={{ editorPageState, setUsereditorPageState }}
-    >
+    <editorPageContext.Provider value={{ editorPageState, setEditorPageState }}>
       {children}
     </editorPageContext.Provider>
   );
