@@ -32,7 +32,7 @@ const EditBody: FC<Props> = memo(
           updateContent = {
             id: content.id,
             contentTitle: contentTitle,
-            contentImg: contentImg,
+            contentImg: `https://source.unsplash.com/weekly?${contentImg}`,
             contentBody: contentBody,
             orderNumber: content.orderNumber,
             articleId: content.articleId,

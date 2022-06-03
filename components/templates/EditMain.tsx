@@ -83,19 +83,8 @@ const EditMain: FC = () => {
 
     if (editorPageState.isUpdate) {
       setData();
-    } else {
-      setContentArray([
-        {
-          id: 0,
-          contentTitle: "",
-          contentImg: "",
-          contentBody: "",
-          orderNumber: 0,
-          articleId: 1,
-        }
-      ]);
-    }
-  }, []);
+    } 
+  }, [editorPageState.isUpdate]);
   return (
     <>
       <div>
