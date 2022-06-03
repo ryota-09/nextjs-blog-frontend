@@ -39,7 +39,7 @@ const Home: React.FC<ArticleList> = ({ staticArticleList }) => {
   }
   return (
     <Layout tabTitle="Next Blog">
-      <div className="grid grid-cols-1 gap-12 lg:gap-24 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-12 lg:gap-24 lg:grid-cols-2 container mx-auto p-5 md:flex-row">
         {articleList &&
           articleList.map((article) => (
             <SingleArticle
@@ -47,7 +47,7 @@ const Home: React.FC<ArticleList> = ({ staticArticleList }) => {
               id={article.id ?? 0}
               title={article.title}
               sumary={article.summary}
-              imgPath="https://source.unsplash.com/random"
+              imgPath="https://source.unsplash.com/weekly?food"
               createdAt={article.createdAt}
               updatedAt={article.updatedAt}
             />
