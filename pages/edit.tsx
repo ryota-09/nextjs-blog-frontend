@@ -1,15 +1,16 @@
 import { FC } from "react";
 import EditMain from "../components/templates/EditMain";
 import EditSidebar from "../components/templates/EditSidebar";
+import Layout from "../components/organisms/Layout";
 
 const Edit: FC = () => {
   return (
     <>
-    <div>
-    <EditSidebar />
-    <EditMain />
-    </div>
+      <Layout tabTitle="Edit Page">
+        <EditSidebar />
+        <EditMain />
+      </Layout>
     </>
-  )
-}
-export default Edit
+  );
+};
+export default Edit;

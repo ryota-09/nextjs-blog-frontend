@@ -1,11 +1,47 @@
+import axios from "axios";
 import { FC } from "react";
+import useSWR from "swr";
+import { useEditorContext } from "../../lib/useEditorPage";
+
+import { Article } from "../../types/article";
 import Menu from "../molecules/Menu";
+
+const axiosFetcher = async () => {
+  const response = await axios.get<Article[]>(
+    "http://demo8969917.mockable.io/allArticles"
+  );
+  return response.data;
+};
+
 /**
  * エディット画面のサイドバーを表すコンポーネント.
  *
  * @returns - FC
  */
 const EditSidebar: FC = () => {
+  const { data: articleList, error } = useSWR("fetchArticleList", axiosFetcher);
+  const { editorPageState, setUsereditorPageState } = useEditorContext();
+
+  if (error) {
+    return <span>Error</span>;
+  }
+
+  const toUpdatePage = (articleId: number) => {
+    console.log("call")
+    setUsereditorPageState({
+      type: "TOGGLE_ISUPDATE",
+      payload: {
+        isUpdate: true,
+      },
+    });
+    setUsereditorPageState({
+      type: "SET_EDITORPAGEID",
+      payload: {
+        editorPageId: articleId,
+      },
+    });
+  };
+
   return (
     <>
       <div className="flex overflow-hidden bg-white rounded-lg">
@@ -13,32 +49,11 @@ const EditSidebar: FC = () => {
           <div className="flex flex-col w-64">
             <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r border-gray-50">
               <div className="flex flex-col items-center flex-shrink-0 px-4">
-                <a
-                  href="./index.html"
-                  className="px-8 text-left focus:outline-none"
-                >
-                  <h2 className="block p-2 text-xl font-medium tracking-tighter text-gray-900 transition duration-500 ease-in-out transform cursor-pointer hover:text-gray-900">
+                <div className="px-8 text-left focus:outline-none">
+                  <h2 className="block p-2 text-xl font-medium tracking-tighter text-gray-900 transition duration-500 ease-in-out transform hover:text-gray-900">
                     Edit Menu
                   </h2>
-                </a>
-                <button className="hidden rounded-lg focus:outline-none focus:shadow-outline">
-                  <svg
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-                      clipRule="evenodd"
-                    ></path>
-                    <path
-                      fillRule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                </button>
+                </div>
               </div>
               <div className="flex flex-col flex-grow px-4 mt-5">
                 <nav className="flex-1 space-y-1 bg-white">
@@ -46,8 +61,7 @@ const EditSidebar: FC = () => {
                     Create
                   </p>
                   <ul>
-                    {/* ここにマップ関数 */}
-                    <Menu menuTitle="新規作成">
+                    <Menu menuTitle="新規作成" onClick={() => {}}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"
@@ -66,8 +80,14 @@ const EditSidebar: FC = () => {
                     Update
                   </p>
                   <ul>
-                    {/* ここにマップ関数 */}
-                    <Menu menuTitle={`1. 記事タイトル`}></Menu>
+                    {articleList &&
+                      articleList.map((article, index) => (
+                        <Menu
+                          key={index}
+                          menuTitle={`${index + 1}. ${article.title}`}
+                          onClick={() => toUpdatePage(article.id ?? 0)}
+                        ></Menu>
+                      ))}
                   </ul>
                 </nav>
               </div>

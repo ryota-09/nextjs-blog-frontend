@@ -1,9 +1,14 @@
-import { AppProps } from 'next/app'
+import { AppProps } from "next/app";
 import "../styles/globals.css";
-import "../styles/AddButton.css"
+import "../styles/AddButton.css";
+import EditorPageProvider from "../providers/EditorPageProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
-    return <Component {...pageProps} />
+  return (
+    <EditorPageProvider>
+      <Component {...pageProps} />
+    </EditorPageProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
