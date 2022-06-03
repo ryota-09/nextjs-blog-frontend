@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
+
 import { useEditorContext } from "../../lib/useEditorPage";
 import { Article } from "../../types/article";
 import { Content } from "../../types/content";
@@ -31,7 +32,7 @@ const EditMain: FC = () => {
 
   const { editorPageState, setUsereditorPageState } = useEditorContext();
 
-  const postArticle = () => {
+  const postArticle = async () => {
     const postedArticle = {
       title: headerTitle,
       summary: headerSummary,
@@ -39,7 +40,9 @@ const EditMain: FC = () => {
       body: [...contentArrayToSave],
     };
     // ここにpost文
-
+    // await axios.post("http://localhost:3003/article/createArticle/",{
+    //   ...postedArticle
+    // })
   };
 
   const createNewContent = () => {
