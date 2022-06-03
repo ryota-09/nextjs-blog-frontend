@@ -1,12 +1,13 @@
 import { FC } from 'react'
 
+import Auth from '../components/organisms/Auth'
 import Layout from '../components/organisms/Layout'
 
 const Signin: FC = () => {
   return (
     <>
       <Layout tabTitle="Sign in">
-        <h1>Sign In</h1>
+        <Auth />
       </Layout>
     </>
   )
