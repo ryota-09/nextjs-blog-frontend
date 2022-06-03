@@ -7,8 +7,14 @@ const Edit: FC = () => {
   return (
     <>
       <Layout tabTitle="Edit Page">
-        <EditSidebar />
-        <EditMain />
+        <div className="flex">
+          <div>
+            <EditSidebar />
+          </div>
+          <div className="w-full">
+            <EditMain />
+          </div>
+        </div>
       </Layout>
     </>
   );

@@ -86,11 +86,14 @@ const EditMain: FC = () => {
 
     if (editorPageState.isUpdate) {
       setData();
-    } 
+    }
   }, [editorPageState.isUpdate]);
   return (
     <>
-      <div>
+      <div className="">
+        <h1 className="mt-6 mb-6 text-3xl font-extrabold text-center text-neutral-600">
+          {editorPageState.isUpdate ? "Update Page" : "Create Page"}
+        </h1>
         <EditHeader
           isUpdate={editorPageState.isUpdate}
           headerTitle={headerTitle}
@@ -111,7 +114,9 @@ const EditMain: FC = () => {
           />
         ))}
         <div>
-          <AddButton onClick={createNewContent} />
+          <div className="text-center">
+            <AddButton onClick={createNewContent} />
+          </div>
           <BaseButton onClick={postArticle}>新規作成</BaseButton>
           <BaseButton onClick={() => {}}>更新する</BaseButton>
           <DeleteButton onClick={() => {}}>削除する</DeleteButton>
