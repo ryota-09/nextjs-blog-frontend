@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 
 //Headコンポーネント用の文字
 type Props = {
@@ -16,6 +17,7 @@ type Props = {
 const Layout: FC<Props> = ({ tabTitle, children }) => {
   return (
     <>
+    <div className='flex flex-col min-h-screen'>
       <Head>
         <title>{tabTitle}</title>
       </Head>
@@ -62,7 +64,12 @@ const Layout: FC<Props> = ({ tabTitle, children }) => {
           </button>
         </div>
       </header>
-      <main>{children}</main>
+      <main className='flex-grow'>{children}</main>
+      <footer className="w-full h-12 mt-20 flex justify-center items-center border-t">
+        <span className='flex items-center'>&copy; 2022  Next Blog 制作チーム</span>
+      </footer>
+
+    </div>
     </>
   )
 }

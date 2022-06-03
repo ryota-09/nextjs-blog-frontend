@@ -120,7 +120,7 @@ const EditMain: FC = () => {
           {editorPageState.isUpdate ? (
             <div className="text-center mt-10 mb-10">
               <span className="mr-5">
-                <BaseButton onClick={() => {}}>更新する</BaseButton>
+                <BaseButton onClick={postArticle}>更新する</BaseButton>
               </span>
               <span className="ml-5">
                 <DeleteButton onClick={() => {}}>削除する</DeleteButton>
