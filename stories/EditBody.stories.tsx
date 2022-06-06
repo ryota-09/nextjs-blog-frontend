@@ -8,7 +8,6 @@ export default { component: EditBody } as ComponentMeta<
 
 export const Index: ComponentStoryObj<typeof EditBody> = {
   args: {
-    isUpdated: false,
     index: 0,
     content: {
       id: 0,

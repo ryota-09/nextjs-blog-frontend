@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
+import Link from "next/link";
+import router from "next/router";
 import { FC, useEffect, useState } from "react";
 
 import { useEditorContext } from "../../lib/useEditorPage";
@@ -10,6 +12,7 @@ import BaseButton from "../atoms/Button/BaseButton";
 import DeleteButton from "../atoms/Button/DeleteButton";
 import EditBody from "../organisms/EditBody";
 import EditHeader from "../organisms/EditHeader";
+import PreviewModal from "./PreviewModal";
 
 const axiosFetcher = async () => {
   const response = await axios.get<Article>(
@@ -43,6 +46,19 @@ const EditMain: FC = () => {
     // await axios.post("http://localhost:3003/article/createArticle/",{
     //   ...postedArticle
     // })
+    router.push("/");
+  };
+
+  const deleteArticle = async (articleId: number) => {
+    // await axios.delete(`http://localhost:3003/article/articleDelete/${articleId}`);
+    setEditorPageState({
+      type: "SET_EDITORPAGEID",
+      payload: {
+        isUpdate: false,
+        editorPageId: 0,
+      },
+    });
+    router.push("/");
   };
 
   const createNewContent = () => {
@@ -58,6 +74,10 @@ const EditMain: FC = () => {
         articleId: 1,
       },
     ]);
+  };
+
+  const previewOpen = () => {
+    return <span>プレビュー</span>;
   };
 
   useEffect(() => {
@@ -86,11 +106,19 @@ const EditMain: FC = () => {
 
     if (editorPageState.isUpdate) {
       setData();
-    } 
+    }
   }, [editorPageState.isUpdate]);
   return (
     <>
-      <div>
+      <div className="">
+        <h1 className="mt-6 mb-6 text-3xl font-extrabold text-center text-neutral-600">
+          {editorPageState.isUpdate ? "Update Page" : "Create Page"}
+        </h1>
+        <div className="text-center mt-10">
+            <a target="_blank">
+              <BaseButton onClick={() => {}}>プレビュー</BaseButton>
+            </a>
+        </div>
         <EditHeader
           isUpdate={editorPageState.isUpdate}
           headerTitle={headerTitle}
@@ -111,10 +139,27 @@ const EditMain: FC = () => {
           />
         ))}
         <div>
-          <AddButton onClick={createNewContent} />
-          <BaseButton onClick={postArticle}>新規作成</BaseButton>
-          <BaseButton onClick={() => {}}>更新する</BaseButton>
-          <DeleteButton onClick={() => {}}>削除する</DeleteButton>
+          <div className="text-center">
+            <AddButton onClick={createNewContent} />
+          </div>
+          {editorPageState.isUpdate ? (
+            <div className="text-center mt-10 mb-10">
+              <span className="mr-5">
+                <BaseButton onClick={postArticle}>更新する</BaseButton>
+              </span>
+              <span className="ml-5">
+                <DeleteButton
+                  onClick={() => deleteArticle(editorPageState.editorPageId)}
+                >
+                  削除する
+                </DeleteButton>
+              </span>
+            </div>
+          ) : (
+            <div className="text-center mt-10">
+              <BaseButton onClick={postArticle}>新規作成</BaseButton>
+            </div>
+          )}
         </div>
       </div>
     </>

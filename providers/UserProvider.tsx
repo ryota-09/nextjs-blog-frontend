@@ -20,7 +20,7 @@ export type UserContextType = {
   setUserState: Dispatch<Action>;
 };
 
-export const setUserContext = createContext({} as UserContextType);
+export const userContext = createContext({} as UserContextType);
 
 const initialState: State = {
   isLogin: false,
@@ -56,9 +56,9 @@ type Props = {
 const UserProvider: FC<Props> = ({ children }) => {
   const [userState, setUserState] = useReducer(reducer, initialState);
   return (
-    <setUserContext.Provider value={{ userState, setUserState }}>
+    <userContext.Provider value={{ userState, setUserState }}>
       {children}
-    </setUserContext.Provider>
+    </userContext.Provider>
   );
 };
 export default UserProvider;
