@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
+import router from "next/router";
 import { FC, useEffect, useState } from "react";
 
 import { useEditorContext } from "../../lib/useEditorPage";
@@ -43,6 +44,19 @@ const EditMain: FC = () => {
     // await axios.post("http://localhost:3003/article/createArticle/",{
     //   ...postedArticle
     // })
+    router.push("/");
+  };
+
+  const deleteArticle = async (articleId: number) => {
+    // await axios.delete(`http://localhost:3003/article/articleDelete/${articleId}`);
+    setEditorPageState({
+      type: "SET_EDITORPAGEID",
+      payload: {
+        isUpdate: false,
+        editorPageId: 0,
+      },
+    });
+    router.push("/");
   };
 
   const createNewContent = () => {
@@ -123,7 +137,11 @@ const EditMain: FC = () => {
                 <BaseButton onClick={postArticle}>更新する</BaseButton>
               </span>
               <span className="ml-5">
-                <DeleteButton onClick={() => {}}>削除する</DeleteButton>
+                <DeleteButton
+                  onClick={() => deleteArticle(editorPageState.editorPageId)}
+                >
+                  削除する
+                </DeleteButton>
               </span>
             </div>
           ) : (
