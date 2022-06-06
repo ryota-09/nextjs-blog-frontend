@@ -12,7 +12,6 @@ import BaseButton from "../atoms/Button/BaseButton";
 import DeleteButton from "../atoms/Button/DeleteButton";
 import EditBody from "../organisms/EditBody";
 import EditHeader from "../organisms/EditHeader";
-import PreviewModal from "./PreviewModal";
 
 const axiosFetcher = async () => {
   const response = await axios.get<Article>(
@@ -33,10 +32,12 @@ const EditMain: FC = () => {
   const [headerImg, setHeaderImg] = useState("");
   const [headerSummary, setHeaderSummary] = useState("");
 
+  const [renderingCount, setRenderingCount] = useState(0);
+
   const { editorPageState, setEditorPageState } = useEditorContext();
 
   const postArticle = async () => {
-    const postedArticle = {
+    const targetArticle = {
       title: headerTitle,
       summary: headerSummary,
       imgPath: headerImg,
@@ -46,6 +47,7 @@ const EditMain: FC = () => {
     // await axios.post("http://localhost:3003/article/createArticle/",{
     //   ...postedArticle
     // })
+    console.log(targetArticle);
     router.push("/");
   };
 
@@ -76,34 +78,70 @@ const EditMain: FC = () => {
     ]);
   };
 
+  const setPreviewData = () => {
+    setEditorPageState({
+      type: "SET_PREVIEWPAGEDATA",
+      payload: {
+        previewPageData: {
+          id: 0,
+          title: headerTitle,
+          summary: headerSummary,
+          imgPath: headerImg,
+          createdAt: "2022",
+          updatedAt: "2022",
+          body: [...contentArrayToSave],
+        },
+      },
+    });
+    setHeaderTitle("");
+    setHeaderImg("");
+    setHeaderSummary("");
+    setContentArrayToSave([]);
+    setContentArray([]);
+  };
+
   useEffect(() => {
     const lastNum = contentArrayToSave.length;
-    setContentArrayToSave([
-      ...contentArrayToSave,
-      {
-        id: lastNum,
-        contentTitle: "",
-        contentImg: "",
-        contentBody: "",
-        orderNumber: lastNum,
-        articleId: 1,
-      },
-    ]);
+    if (renderingCount !== 0) {
+      setContentArrayToSave([
+        ...contentArrayToSave,
+        {
+          id: lastNum,
+          contentTitle: "",
+          contentImg: "",
+          contentBody: "",
+          orderNumber: lastNum,
+          articleId: editorPageState.editorPageId ?? 1,
+        },
+      ]);
+    }
+    setRenderingCount((prev) => prev + 1);
   }, [contentArray]);
 
   useEffect(() => {
     const setData = async () => {
       const response = await axiosFetcher();
+      console.log(response.body);
       await setContentArray([...response.body]);
       setHeaderTitle(response.title);
       setHeaderImg(response.imgPath);
       setHeaderSummary(response.summary);
     };
-
     if (editorPageState.isUpdate) {
       setData();
     }
   }, [editorPageState.isUpdate]);
+
+  useEffect(() => {
+    setRenderingCount(0);
+    if (editorPageState.previewPageData.title !== "") {
+      setHeaderTitle(editorPageState.previewPageData.title);
+      setHeaderImg(editorPageState.previewPageData.imgPath);
+      setHeaderSummary(editorPageState.previewPageData.summary);
+      setContentArrayToSave([...editorPageState.previewPageData.body]);
+      setContentArray([...editorPageState.previewPageData.body]);
+    }
+  }, []);
   return (
     <>
       <div className="">
@@ -111,9 +149,11 @@ const EditMain: FC = () => {
           {editorPageState.isUpdate ? "Update Page" : "Create Page"}
         </h1>
         <div className="text-center mt-10">
-            <a target="_blank">
-              <BaseButton onClick={() => {}}>プレビュー</BaseButton>
+          <Link href="/preview">
+            <a>
+              <BaseButton onClick={setPreviewData}>プレビュー</BaseButton>
             </a>
+          </Link>
         </div>
         <EditHeader
           isUpdate={editorPageState.isUpdate}

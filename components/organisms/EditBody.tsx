@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import { memo, useEffect, useState } from "react";
 import { Dispatch, FC, SetStateAction } from "react";
+import { useEditorContext } from "../../lib/useEditorPage";
 
 import { Content } from "../../types/content";
 
@@ -18,7 +19,7 @@ type Props = {
  * @params - props
  * @returns - FC
  */
-const EditBody: FC<Props> = memo(
+const EditBody: FC<Props> = 
   ({ isUpdate, index, content, contentArray, setContentArrayToSave }) => {
     const [contentTitle, setContentTitle] = useState("");
     const [contentImg, setContentImg] = useState("");
@@ -108,5 +109,5 @@ const EditBody: FC<Props> = memo(
       </>
     );
   }
-);
+
 export default EditBody;
