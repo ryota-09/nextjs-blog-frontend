@@ -76,10 +76,6 @@ const EditMain: FC = () => {
     ]);
   };
 
-  const previewOpen = () => {
-    return <span>プレビュー</span>;
-  };
-
   useEffect(() => {
     const lastNum = contentArrayToSave.length;
     setContentArrayToSave([

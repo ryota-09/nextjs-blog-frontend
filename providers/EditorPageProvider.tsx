@@ -1,16 +1,19 @@
 import { useReducer } from "react";
 import { createContext, Dispatch, FC, ReactNode } from "react";
+import { Article } from "../types/article";
 
 export type State = {
   isUpdate: boolean;
   editorPageId: number;
+  previewPageData: Article;
 };
 
 export type Action = {
-  type: "TOGGLE_ISUPDATE" | "SET_EDITORPAGEID";
+  type: "TOGGLE_ISUPDATE" | "SET_EDITORPAGEID" | "SET_PREVIEWPAGEDATA";
   payload: {
     isUpdate?: boolean;
     editorPageId?: number;
+    previewPageData?: Article;
   };
 };
 
@@ -24,19 +27,33 @@ export const editorPageContext = createContext({} as EditorPageContextType);
 const initialState: State = {
   isUpdate: false,
   editorPageId: 0,
+  previewPageData: {
+    id: 0,
+    title: "",
+    summary: "",
+    imgPath: "",
+    createdAt: "",
+    updatedAt: "",
+    body: [],
+  },
 };
 
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case "TOGGLE_ISUPDATE":
       return {
+        ...state,
         isUpdate: action.payload.isUpdate as boolean,
-        editorPageId: state.editorPageId,
       };
     case "SET_EDITORPAGEID":
       return {
-        isUpdate: state.isUpdate,
+        ...state,
         editorPageId: action.payload.editorPageId as number,
+      };
+    case "SET_PREVIEWPAGEDATA":
+      return {
+        ...state,
+        previewPageData: action.payload.previewPageData as Article,
       };
     default:
       return state;
