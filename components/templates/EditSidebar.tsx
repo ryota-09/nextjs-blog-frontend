@@ -26,8 +26,22 @@ const EditSidebar: FC = () => {
     return <span>Error</span>;
   }
 
+  const toCreatePage = () => {
+    setEditorPageState({
+      type: "TOGGLE_ISUPDATE",
+      payload: {
+        isUpdate: false,
+      },
+    });
+    setEditorPageState({
+      type: "SET_EDITORPAGEID",
+      payload: {
+        editorPageId: 0,
+      },
+    });
+  };
+
   const toUpdatePage = (articleId: number) => {
-    console.log("call")
     setEditorPageState({
       type: "TOGGLE_ISUPDATE",
       payload: {
@@ -61,7 +75,7 @@ const EditSidebar: FC = () => {
                     Create
                   </p>
                   <ul>
-                    <Menu menuTitle="新規作成" onClick={() => {}}>
+                    <Menu menuTitle="新規作成" onClick={toCreatePage}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"

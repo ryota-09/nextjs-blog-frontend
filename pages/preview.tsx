@@ -10,10 +10,6 @@ const Preview: FC = () => {
   const { editorPageState } = useEditorContext();
   const { id, title, summary, imgPath, createdAt, updatedAt, body } =
     editorPageState.previewPageData;
-
-  useEffect(() => {
-    console.log(editorPageState.previewPageData);
-  }, []);
   return (
     <>
       <Layout tabTitle="Preview">

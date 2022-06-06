@@ -83,7 +83,7 @@ const EditMain: FC = () => {
       type: "SET_PREVIEWPAGEDATA",
       payload: {
         previewPageData: {
-          id: 0,
+          id: 1,
           title: headerTitle,
           summary: headerSummary,
           imgPath: headerImg,
@@ -129,6 +129,12 @@ const EditMain: FC = () => {
     };
     if (editorPageState.isUpdate) {
       setData();
+    } else {
+      setHeaderTitle("");
+      setHeaderImg("");
+      setHeaderSummary("");
+      setContentArrayToSave([]);
+      setContentArray([]);
     }
   }, [editorPageState.isUpdate]);
 
