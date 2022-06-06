@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,7 +18,9 @@ type Props = {
  */
 const Layout: FC<Props> = ({ tabTitle, children }) => {
   const { userState, setUserState } = useUserContext();
-  const {} = useUserContext();
+  useEffect(() => {
+    console.log(userState);
+  })
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -51,7 +53,7 @@ const Layout: FC<Props> = ({ tabTitle, children }) => {
               </Link>
             </nav>
             <button className="text-center inline-flex items-center bg-blue-300 border-0 py-1 px-3 focus:outline-none hover:bg-blue-400 rounded text-base mt-4 md:mt-0">
-              {userState.isLogin ? (
+              {userState && userState.isLogin ? (
                 <Link href="/edit">
                   <a className="hover:text-gray-900" data-testid="signin-nav">
                     Edit
