@@ -6,13 +6,14 @@ import Layout from "../components/organisms/Layout";
 import SingleArticle from "../components/organisms/SingleArticle";
 import { getAllArticles } from "../lib/fetch";
 import { Article } from "../types/article";
+import { StaticArticle } from "../types/staticArticle";
 
-type ArticleList = {
-  staticArticleList: Omit<Article, "body">[];
+type  ArticleList = {
+  staticArticleList: StaticArticle[];
 };
 
 const axiosFetcher = async () => {
-  const response = await axios.get<Omit<Article, "body">[]>(
+  const response = await axios.get<StaticArticle[]>(
     "http://demo8969917.mockable.io/allArticles"
   );
   return response.data;
@@ -40,6 +41,7 @@ const Home: React.FC<ArticleList> = ({ staticArticleList }) => {
   return (
     <Layout tabTitle="Next Blog">
       <div className="grid grid-cols-1 gap-12 lg:gap-24 lg:grid-cols-2 container mx-auto p-5 md:flex-row">
+        {/* {articleList && <button onClick={() => console.log(staticArticleList)}>ボタン</button>} */}
         {articleList &&
           articleList.map((article) => (
             <SingleArticle
