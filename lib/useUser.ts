@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { UserContextType, setUserContext } from "../providers/UserProvider";
+import { UserContextType, userContext } from "../providers/UserProvider";
 
-export const useEditorContext = (): UserContextType => {
-  return useContext(setUserContext);
+export const useUserContext = (): UserContextType => {
+  return useContext(userContext);
 };

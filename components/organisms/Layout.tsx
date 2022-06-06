@@ -3,6 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
+import { useUserContext } from "../../lib/useUser";
+
 //Headコンポーネント用の文字
 type Props = {
   tabTitle: string;
@@ -15,6 +17,8 @@ type Props = {
  * @returns FC
  */
 const Layout: FC<Props> = ({ tabTitle, children }) => {
+  const { userState, setUserState } = useUserContext();
+  const {} = useUserContext();
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -47,14 +51,19 @@ const Layout: FC<Props> = ({ tabTitle, children }) => {
               </Link>
             </nav>
             <button className="text-center inline-flex items-center bg-blue-300 border-0 py-1 px-3 focus:outline-none hover:bg-blue-400 rounded text-base mt-4 md:mt-0">
-              <Link href="/signin">
-                <a
-                  className="hover:text-gray-900"
-                  data-testid="signin-nav"
-                >
-                  Sign in
-                </a>
-              </Link>
+              {userState.isLogin ? (
+                <Link href="/edit">
+                  <a className="hover:text-gray-900" data-testid="signin-nav">
+                    Edit
+                  </a>
+                </Link>
+              ) : (
+                <Link href="/signin">
+                  <a className="hover:text-gray-900" data-testid="signin-nav">
+                    Sign in
+                  </a>
+                </Link>
+              )}
             </button>
           </div>
         </header>
