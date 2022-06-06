@@ -9,7 +9,7 @@ export const getAllArticles = async () => {
   return articleList;
 };
 
-export const getArticleByArticleId = async (articleId: number) => {
+export const getArticleByArticleId = async (articleId: string) => {
   const response = await fetch(
     // new URL(`http://localhost:3003/article/articleDetail/${articleId}`)
     new URL("https://demo8969917.mockable.io/personal-media/23")
