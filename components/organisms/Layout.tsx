@@ -11,7 +11,7 @@ type Props = {
 };
 
 /**
- * headerを含むレイアウトのcomponent.
+ * header, footerを含むレイアウトのcomponent.
  *
  * @param props
  * @returns FC
@@ -66,6 +66,7 @@ const Layout: FC<Props> = ({ tabTitle, children }) => {
                   </a>
                 </Link>
               )}
+              
             </button>
           </div>
         </header>
