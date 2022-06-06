@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
+import Link from "next/link";
 import router from "next/router";
 import { FC, useEffect, useState } from "react";
 
@@ -11,6 +12,7 @@ import BaseButton from "../atoms/Button/BaseButton";
 import DeleteButton from "../atoms/Button/DeleteButton";
 import EditBody from "../organisms/EditBody";
 import EditHeader from "../organisms/EditHeader";
+import PreviewModal from "./PreviewModal";
 
 const axiosFetcher = async () => {
   const response = await axios.get<Article>(
@@ -74,6 +76,10 @@ const EditMain: FC = () => {
     ]);
   };
 
+  const previewOpen = () => {
+    return <span>プレビュー</span>;
+  };
+
   useEffect(() => {
     const lastNum = contentArrayToSave.length;
     setContentArrayToSave([
@@ -108,6 +114,11 @@ const EditMain: FC = () => {
         <h1 className="mt-6 mb-6 text-3xl font-extrabold text-center text-neutral-600">
           {editorPageState.isUpdate ? "Update Page" : "Create Page"}
         </h1>
+        <div className="text-center mt-10">
+            <a target="_blank">
+              <BaseButton onClick={() => {}}>プレビュー</BaseButton>
+            </a>
+        </div>
         <EditHeader
           isUpdate={editorPageState.isUpdate}
           headerTitle={headerTitle}
