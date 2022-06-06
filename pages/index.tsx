@@ -40,7 +40,7 @@ const Home: React.FC<ArticleList> = ({ staticArticleList }) => {
   }
   return (
     <Layout tabTitle="Next Blog">
-      <div className="grid grid-cols-1 gap-12 lg:gap-24 lg:grid-cols-2 container mx-auto p-5 md:flex-row">
+      <div className="container grid grid-cols-1 gap-12 lg:gap-24 lg:grid-cols-2 container mx-auto p-5 md:flex-row">
         {/* {articleList && <button onClick={() => console.log(staticArticleList)}>ボタン</button>} */}
         {articleList &&
           articleList.map((article) => (

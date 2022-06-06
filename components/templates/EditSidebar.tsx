@@ -46,7 +46,7 @@ const EditSidebar: FC = () => {
     <>
       <div className="flex overflow-hidden bg-white rounded-lg">
         <div className="hidden md:flex md:flex-shrink-0">
-          <div className="flex flex-col w-64">
+          <div className="flex flex-col w-70">
             <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r border-gray-50">
               <div className="flex flex-col items-center flex-shrink-0 px-4">
                 <div className="px-8 text-left focus:outline-none">
