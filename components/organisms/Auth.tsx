@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
+import { useUserContext } from "../../lib/useUser";
 
 /**
  * ログイン関係を表すコンポーネント.
@@ -12,6 +13,8 @@ const Auth: FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const { setUserState } = useUserContext();
+
   const router = useRouter();
 
   const login = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -19,9 +22,26 @@ const Auth: FC = () => {
     setError("");
     try {
       const response = await axios.get("url");
+      setUserState({
+        type: "TOGGLE_ISLOGIN",
+        payload: {
+          isLogin: true,
+        },
+      });
+      setUserState({
+        type: "SET_USER",
+        payload: {
+          user: {
+            id: response.data.id,
+            name: response.data.name,
+            email: "",
+            password: "",
+          },
+        },
+      });
       router.push("/edit");
     } catch (error) {
-      setError(`ログインできませんでした。( エラー: ${error} )`);
+      setError(`ログインできませんでした。( ${error} )`);
     }
   };
 

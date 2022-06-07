@@ -29,7 +29,7 @@ const SingleArticle: FC<Props> = ({
   const router = useRouter();
   return (
     <>
-      <div className="sm:flex lg:items-start group h-70 bg-gray-100 p-2 rounded shadow-md">
+      <div className="sm:flex lg:items-start group h-70 bg-slate-50 p-2 rounded shadow-md">
         <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4 mt-5 ml-2">
           <Link href={`/post/${id}`}>
             <a>

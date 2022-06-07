@@ -39,6 +39,20 @@ const EditSidebar: FC = () => {
         editorPageId: 0,
       },
     });
+    setEditorPageState({
+      type: "SET_PREVIEWPAGEDATA",
+      payload: {
+        previewPageData: {
+          id: 0,
+          title: "",
+          summary: "",
+          imgPath: "",
+          createdAt: "",
+          updatedAt: "",
+          body: [],
+        },
+      },
+    });
   };
 
   const toUpdatePage = (articleId: number) => {
@@ -52,6 +66,20 @@ const EditSidebar: FC = () => {
       type: "SET_EDITORPAGEID",
       payload: {
         editorPageId: articleId,
+      },
+    });
+    setEditorPageState({
+      type: "SET_PREVIEWPAGEDATA",
+      payload: {
+        previewPageData: {
+          id: articleId,
+          title: "",
+          summary: "",
+          imgPath: "",
+          createdAt: "",
+          updatedAt: "",
+          body: [],
+        },
       },
     });
   };

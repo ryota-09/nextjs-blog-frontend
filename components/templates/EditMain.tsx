@@ -36,6 +36,35 @@ const EditMain: FC = () => {
 
   const { editorPageState, setEditorPageState } = useEditorContext();
 
+  const allResetState = () => {
+    setEditorPageState({
+      type: "TOGGLE_ISUPDATE",
+      payload: {
+        isUpdate: false,
+      },
+    });
+    setEditorPageState({
+      type: "SET_EDITORPAGEID",
+      payload: {
+        editorPageId: 0,
+      },
+    });
+    setEditorPageState({
+      type: "SET_PREVIEWPAGEDATA",
+      payload: {
+        previewPageData: {
+          id: 0,
+          title: "",
+          summary: "",
+          imgPath: "",
+          createdAt: "",
+          updatedAt: "",
+          body: [],
+        },
+      },
+    });
+  };
+
   const postArticle = async () => {
     const targetArticle = {
       title: headerTitle,
@@ -48,18 +77,13 @@ const EditMain: FC = () => {
     //   ...postedArticle
     // })
     console.log(targetArticle);
+    allResetState();
     router.push("/");
   };
 
   const deleteArticle = async (articleId: number) => {
     // await axios.delete(`http://localhost:3003/article/articleDelete/${articleId}`);
-    setEditorPageState({
-      type: "SET_EDITORPAGEID",
-      payload: {
-        isUpdate: false,
-        editorPageId: 0,
-      },
-    });
+    allResetState();
     router.push("/");
   };
 
@@ -73,7 +97,7 @@ const EditMain: FC = () => {
         contentImg: "",
         contentBody: "",
         orderNumber: lastNum,
-        articleId: 1,
+        articleId: editorPageState.isUpdate ? editorPageState.editorPageId : 0,
       },
     ]);
   };
@@ -93,11 +117,6 @@ const EditMain: FC = () => {
         },
       },
     });
-    setHeaderTitle("");
-    setHeaderImg("");
-    setHeaderSummary("");
-    setContentArrayToSave([]);
-    setContentArray([]);
   };
 
   useEffect(() => {
@@ -121,14 +140,22 @@ const EditMain: FC = () => {
   useEffect(() => {
     const setData = async () => {
       const response = await axiosFetcher();
-      console.log(response.body);
       await setContentArray([...response.body]);
       setHeaderTitle(response.title);
       setHeaderImg(response.imgPath);
       setHeaderSummary(response.summary);
     };
-    if (editorPageState.isUpdate) {
+    if (
+      editorPageState.isUpdate &&
+      editorPageState.previewPageData.title === ""
+    ) {
       setData();
+    } else if (editorPageState.isUpdate) {
+      setHeaderTitle(editorPageState.previewPageData.title);
+      setHeaderImg(editorPageState.previewPageData.imgPath);
+      setHeaderSummary(editorPageState.previewPageData.summary);
+      setContentArrayToSave([...editorPageState.previewPageData.body]);
+      setContentArray([...editorPageState.previewPageData.body]);
     } else {
       setHeaderTitle("");
       setHeaderImg("");

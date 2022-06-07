@@ -20,7 +20,6 @@ const Preview: FC = () => {
               title={title}
               summary={summary}
               imgPath={`https://source.unsplash.com/weekly?${imgPath}`}
-              // imgPath={imgPath}
               createdAt={createdAt}
               updatedAt={updatedAt}
             />
