@@ -12,7 +12,6 @@ import BaseButton from "../atoms/Button/BaseButton";
 import DeleteButton from "../atoms/Button/DeleteButton";
 import EditBody from "../organisms/EditBody";
 import EditHeader from "../organisms/EditHeader";
-import PreviewModal from "./PreviewModal";
 
 const axiosFetcher = async () => {
   const response = await axios.get<Article>(
@@ -33,10 +32,41 @@ const EditMain: FC = () => {
   const [headerImg, setHeaderImg] = useState("");
   const [headerSummary, setHeaderSummary] = useState("");
 
+  const [renderingCount, setRenderingCount] = useState(0);
+
   const { editorPageState, setEditorPageState } = useEditorContext();
 
+  const allResetState = () => {
+    setEditorPageState({
+      type: "TOGGLE_ISUPDATE",
+      payload: {
+        isUpdate: false,
+      },
+    });
+    setEditorPageState({
+      type: "SET_EDITORPAGEID",
+      payload: {
+        editorPageId: 0,
+      },
+    });
+    setEditorPageState({
+      type: "SET_PREVIEWPAGEDATA",
+      payload: {
+        previewPageData: {
+          id: 0,
+          title: "",
+          summary: "",
+          imgPath: "",
+          createdAt: "",
+          updatedAt: "",
+          body: [],
+        },
+      },
+    });
+  };
+
   const postArticle = async () => {
-    const postedArticle = {
+    const targetArticle = {
       title: headerTitle,
       summary: headerSummary,
       imgPath: headerImg,
@@ -46,18 +76,14 @@ const EditMain: FC = () => {
     // await axios.post("http://localhost:3003/article/createArticle/",{
     //   ...postedArticle
     // })
+    console.log(targetArticle);
+    allResetState();
     router.push("/");
   };
 
   const deleteArticle = async (articleId: number) => {
     // await axios.delete(`http://localhost:3003/article/articleDelete/${articleId}`);
-    setEditorPageState({
-      type: "SET_EDITORPAGEID",
-      payload: {
-        isUpdate: false,
-        editorPageId: 0,
-      },
-    });
+    allResetState();
     router.push("/");
   };
 
@@ -71,28 +97,44 @@ const EditMain: FC = () => {
         contentImg: "",
         contentBody: "",
         orderNumber: lastNum,
-        articleId: 1,
+        articleId: editorPageState.isUpdate ? editorPageState.editorPageId : 0,
       },
     ]);
   };
 
-  const previewOpen = () => {
-    return <span>プレビュー</span>;
+  const setPreviewData = () => {
+    setEditorPageState({
+      type: "SET_PREVIEWPAGEDATA",
+      payload: {
+        previewPageData: {
+          id: 1,
+          title: headerTitle,
+          summary: headerSummary,
+          imgPath: headerImg,
+          createdAt: "2022",
+          updatedAt: "2022",
+          body: [...contentArrayToSave],
+        },
+      },
+    });
   };
 
   useEffect(() => {
     const lastNum = contentArrayToSave.length;
-    setContentArrayToSave([
-      ...contentArrayToSave,
-      {
-        id: lastNum,
-        contentTitle: "",
-        contentImg: "",
-        contentBody: "",
-        orderNumber: lastNum,
-        articleId: 1,
-      },
-    ]);
+    if (renderingCount !== 0) {
+      setContentArrayToSave([
+        ...contentArrayToSave,
+        {
+          id: lastNum,
+          contentTitle: "",
+          contentImg: "",
+          contentBody: "",
+          orderNumber: lastNum,
+          articleId: editorPageState.editorPageId ?? 1,
+        },
+      ]);
+    }
+    setRenderingCount((prev) => prev + 1);
   }, [contentArray]);
 
   useEffect(() => {
@@ -103,11 +145,36 @@ const EditMain: FC = () => {
       setHeaderImg(response.imgPath);
       setHeaderSummary(response.summary);
     };
-
-    if (editorPageState.isUpdate) {
+    if (
+      editorPageState.isUpdate &&
+      editorPageState.previewPageData.title === ""
+    ) {
       setData();
+    } else if (editorPageState.isUpdate) {
+      setHeaderTitle(editorPageState.previewPageData.title);
+      setHeaderImg(editorPageState.previewPageData.imgPath);
+      setHeaderSummary(editorPageState.previewPageData.summary);
+      setContentArrayToSave([...editorPageState.previewPageData.body]);
+      setContentArray([...editorPageState.previewPageData.body]);
+    } else {
+      setHeaderTitle("");
+      setHeaderImg("");
+      setHeaderSummary("");
+      setContentArrayToSave([]);
+      setContentArray([]);
     }
   }, [editorPageState.isUpdate]);
+
+  useEffect(() => {
+    setRenderingCount(0);
+    if (editorPageState.previewPageData.title !== "") {
+      setHeaderTitle(editorPageState.previewPageData.title);
+      setHeaderImg(editorPageState.previewPageData.imgPath);
+      setHeaderSummary(editorPageState.previewPageData.summary);
+      setContentArrayToSave([...editorPageState.previewPageData.body]);
+      setContentArray([...editorPageState.previewPageData.body]);
+    }
+  }, []);
   return (
     <>
       <div className="">
@@ -115,9 +182,11 @@ const EditMain: FC = () => {
           {editorPageState.isUpdate ? "Update Page" : "Create Page"}
         </h1>
         <div className="text-center mt-10">
-            <a target="_blank">
-              <BaseButton onClick={() => {}}>プレビュー</BaseButton>
+          <Link href="/preview">
+            <a>
+              <BaseButton onClick={setPreviewData}>プレビュー</BaseButton>
             </a>
+          </Link>
         </div>
         <EditHeader
           isUpdate={editorPageState.isUpdate}

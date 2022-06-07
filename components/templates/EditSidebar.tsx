@@ -26,8 +26,36 @@ const EditSidebar: FC = () => {
     return <span>Error</span>;
   }
 
+  const toCreatePage = () => {
+    setEditorPageState({
+      type: "TOGGLE_ISUPDATE",
+      payload: {
+        isUpdate: false,
+      },
+    });
+    setEditorPageState({
+      type: "SET_EDITORPAGEID",
+      payload: {
+        editorPageId: 0,
+      },
+    });
+    setEditorPageState({
+      type: "SET_PREVIEWPAGEDATA",
+      payload: {
+        previewPageData: {
+          id: 0,
+          title: "",
+          summary: "",
+          imgPath: "",
+          createdAt: "",
+          updatedAt: "",
+          body: [],
+        },
+      },
+    });
+  };
+
   const toUpdatePage = (articleId: number) => {
-    console.log("call")
     setEditorPageState({
       type: "TOGGLE_ISUPDATE",
       payload: {
@@ -40,13 +68,27 @@ const EditSidebar: FC = () => {
         editorPageId: articleId,
       },
     });
+    setEditorPageState({
+      type: "SET_PREVIEWPAGEDATA",
+      payload: {
+        previewPageData: {
+          id: articleId,
+          title: "",
+          summary: "",
+          imgPath: "",
+          createdAt: "",
+          updatedAt: "",
+          body: [],
+        },
+      },
+    });
   };
 
   return (
     <>
       <div className="flex overflow-hidden bg-white rounded-lg">
         <div className="hidden md:flex md:flex-shrink-0">
-          <div className="flex flex-col w-70">
+          <div className="flex flex-col w-80">
             <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r border-gray-50">
               <div className="flex flex-col items-center flex-shrink-0 px-4">
                 <div className="px-8 text-left focus:outline-none">
@@ -61,7 +103,7 @@ const EditSidebar: FC = () => {
                     Create
                   </p>
                   <ul>
-                    <Menu menuTitle="新規作成" onClick={() => {}}>
+                    <Menu menuTitle="新規作成" onClick={toCreatePage}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"
