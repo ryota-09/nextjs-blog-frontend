@@ -29,24 +29,28 @@ const axiosFetcher = async (/*articleId: string*/) => {
  */
 const ArticleDetail: FC<StaticArticle> = ({ staticArticle }) => {
   // SSG + CSR
-  const { data: article, error } = useSWR("articleFetcher", axiosFetcher, {
-    fallbackData: staticArticle,
-    revalidateOnMount: true,
-  });
+  const { data: article, error } = useSWR(
+    "articleFetcher",
+    /* (articleId) => axiosFetcher(articleId) */ axiosFetcher,
+    {
+      fallbackData: staticArticle,
+      revalidateOnMount: true,
+    }
+  );
   if (error) {
     return <span data-testid="error">Error</span>;
   }
 
   return (
     <>
-      <Layout tabTitle="詳細ページ">
+      <Layout tabTitle="Article">
         {article && (
           <div>
             <BlogHeader
               key={article.id}
               title={article.title}
               summary={article.summary}
-              imgPath="https://source.unsplash.com/weekly?food"
+              imgPath={`https://source.unsplash.com/weekly?${article.imgPath}`}
               // imgPath={article.imgPath}
               createdAt={article.createdAt}
               updatedAt={article.updatedAt}

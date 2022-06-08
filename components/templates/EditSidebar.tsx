@@ -20,7 +20,7 @@ const axiosFetcher = async () => {
  */
 const EditSidebar: FC = () => {
   const { data: articleList, error } = useSWR("fetchArticleList", axiosFetcher);
-  const { editorPageState, setEditorPageState } = useEditorContext();
+  const { setEditorPageState } = useEditorContext();
 
   if (error) {
     return <span>Error</span>;

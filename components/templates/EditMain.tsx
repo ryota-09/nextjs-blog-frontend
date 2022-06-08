@@ -32,6 +32,7 @@ const EditMain: FC = () => {
   const [headerImg, setHeaderImg] = useState("");
   const [headerSummary, setHeaderSummary] = useState("");
 
+  // useEffectを制御するために用いる
   const [renderingCount, setRenderingCount] = useState(0);
 
   const { editorPageState, setEditorPageState } = useEditorContext();
@@ -141,16 +142,23 @@ const EditMain: FC = () => {
     const setData = async () => {
       const response = await axiosFetcher();
       await setContentArray([...response.body]);
+      await setContentArrayToSave([...response.body]);
       setHeaderTitle(response.title);
       setHeaderImg(response.imgPath);
       setHeaderSummary(response.summary);
     };
+
     if (
       editorPageState.isUpdate &&
       editorPageState.previewPageData.title === ""
     ) {
+      //updateリンクをクリックしたときの始めの処理
       setData();
-    } else if (editorPageState.isUpdate) {
+    } else if (
+      editorPageState.isUpdate &&
+      editorPageState.previewPageData.title !== ""
+    ) {
+      //update中にプレビューを確認してedit画面に戻ったときの処理
       setHeaderTitle(editorPageState.previewPageData.title);
       setHeaderImg(editorPageState.previewPageData.imgPath);
       setHeaderSummary(editorPageState.previewPageData.summary);

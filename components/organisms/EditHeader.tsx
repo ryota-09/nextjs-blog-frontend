@@ -15,8 +15,9 @@ type Props = {
   setHeaderSummary: Dispatch<SetStateAction<string>>;
 };
 
-const axiosFetcher = async () => {
+const axiosFetcher = async (/** articleId: string */) => {
   const response = await axios.get<Article>(
+    // `http://localhost:3003/article/articleDetail/${articleId}`
     "https://demo8969917.mockable.io/personal-media/23"
   );
   return response.data;

@@ -21,7 +21,10 @@ const Auth: FC = () => {
     event.preventDefault();
     setError("");
     try {
-      const response = await axios.get("url");
+      const response = await axios.post("url", {
+        email: email,
+        password: password,
+      });
       setUserState({
         type: "TOGGLE_ISLOGIN",
         payload: {

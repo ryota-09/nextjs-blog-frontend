@@ -35,7 +35,7 @@ const SingleArticle: FC<Props> = ({
             <a>
               <Image
                 className="w-full rounded-md sm:h-32 sm:w-32 object-cover hover:opacity-80"
-                src={imgPath}
+                src={`https://source.unsplash.com/weekly?${imgPath}`}
                 alt="text"
                 height="100%"
                 width="100%"
