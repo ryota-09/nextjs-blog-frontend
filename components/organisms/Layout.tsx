@@ -17,10 +17,7 @@ type Props = {
  * @returns FC
  */
 const Layout: FC<Props> = ({ tabTitle, children }) => {
-  const { userState, setUserState } = useUserContext();
-  useEffect(() => {
-    console.log(userState);
-  })
+  const { userState } = useUserContext();
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -52,7 +49,7 @@ const Layout: FC<Props> = ({ tabTitle, children }) => {
                 </a>
               </Link>
             </nav>
-            <button className="text-center inline-flex items-center bg-blue-300 border-0 py-1 px-3 focus:outline-none hover:bg-blue-400 rounded text-base mt-4 md:mt-0">
+            <button className="text-center inline-flex items-center bg-blue-300 border-0 py-1 px-3 focus:outline-none hover:bg-blue-400 rounded text-base mt-4 md:mt-0 shadow-md">
               {userState && userState.isLogin ? (
                 <Link href="/edit">
                   <a className="hover:text-gray-900" data-testid="signin-nav">
@@ -66,7 +63,6 @@ const Layout: FC<Props> = ({ tabTitle, children }) => {
                   </a>
                 </Link>
               )}
-              
             </button>
           </div>
         </header>

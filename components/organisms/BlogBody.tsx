@@ -13,9 +13,6 @@ type Props = {
  * @returns - FC
  */
 const BlogBody: FC<Props> = ({ body }) => {
-  useEffect(() => {
-    console.log(body)
-  })
   return (
     <>
       {body &&
@@ -29,14 +26,14 @@ const BlogBody: FC<Props> = ({ body }) => {
               </div>
             </div>
             <div className="container mx-auto flex px-5 md:flex-row flex-col items-center text-center">
-              <img src="https://source.unsplash.com/weekly?food" alt="" />
-              {/* <Image
+              {/* <img src="https://source.unsplash.com/weekly?food" alt="" /> */}
+              <Image
                 className="container object-cover object-center rounded"
-                src={content.contentImg}
+                src={`https://source.unsplash.com/weekly?${content.contentImg}`}
                 alt="blog-body-img"
                 height="480px"
                 width="600px"
-              /> */}
+              />
             </div>
             <div className="container mx-auto flex px-5 mt-10 md:flex-row flex-col items-center">
               <p>{content.contentBody}</p>
