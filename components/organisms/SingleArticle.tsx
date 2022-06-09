@@ -58,7 +58,7 @@ const SingleArticle: FC<Props> = ({
             {sumary}
           </p>
         </div>
-        <div className="text-right ml-40 mb-2 mt-60">
+        <div id="detail-button" className="text-right ml-40 mb-2 mt-60">
           <BaseButton onClick={() => router.push(`/post/${id}`)}>
             続きを読む
           </BaseButton>

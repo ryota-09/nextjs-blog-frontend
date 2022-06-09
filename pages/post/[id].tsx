@@ -57,7 +57,7 @@ const ArticleDetail: FC<StaticArticle> = ({ staticArticle }) => {
             />
             <BlogBody body={article.body} />
             <Link href="/">
-              <div className="flex cursor-pointer mt-12 justify-center hover:text-blue-500">
+              <div id="index-back-button" className="flex cursor-pointer mt-12 justify-center hover:text-blue-500">
                 <svg
                   className="w-6 h-6 mr-3"
                   fill="none"
