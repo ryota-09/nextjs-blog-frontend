@@ -77,7 +77,6 @@ const EditMain: FC = () => {
     // await axios.post("http://localhost:3003/article/createArticle/",{
     //   ...postedArticle
     // })
-    console.log(targetArticle);
     allResetState();
     router.push("/");
   };
@@ -103,7 +102,14 @@ const EditMain: FC = () => {
     ]);
   };
 
-  const setPreviewData = () => {
+  const setPreviewData = async () => {
+    await setEditorPageState({
+      type: "TOGGLE_ISEDITORPAGE",
+      payload: {
+        isEditorPage: false,
+      },
+    });
+    console.log("bodyの中", contentArrayToSave);
     setEditorPageState({
       type: "SET_PREVIEWPAGEDATA",
       payload: {
@@ -118,11 +124,12 @@ const EditMain: FC = () => {
         },
       },
     });
+    
   };
 
   useEffect(() => {
     const lastNum = contentArrayToSave.length;
-    if (renderingCount !== 0) {
+    if (renderingCount !== 0 && !editorPageState.isEditorPage) {
       setContentArrayToSave([
         ...contentArrayToSave,
         {
@@ -146,6 +153,20 @@ const EditMain: FC = () => {
       setHeaderTitle(response.title);
       setHeaderImg(response.imgPath);
       setHeaderSummary(response.summary);
+      setEditorPageState({
+        type: "SET_PREVIEWPAGEDATA",
+        payload: {
+          previewPageData: {
+            id: response.id,
+            title: response.title,
+            summary: response.summary,
+            imgPath: response.imgPath,
+            createdAt: response.createdAt,
+            updatedAt: response.updatedAt,
+            body: [...response.body],
+          },
+        },
+      });
     };
 
     if (

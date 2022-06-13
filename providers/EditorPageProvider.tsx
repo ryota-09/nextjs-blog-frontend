@@ -4,14 +4,20 @@ import { Article } from "../types/article";
 
 export type State = {
   isUpdate: boolean;
+  isEditorPage: boolean;
   editorPageId: number;
   previewPageData: Article;
 };
 
 export type Action = {
-  type: "TOGGLE_ISUPDATE" | "SET_EDITORPAGEID" | "SET_PREVIEWPAGEDATA";
+  type:
+    | "TOGGLE_ISUPDATE"
+    | "TOGGLE_ISEDITORPAGE"
+    | "SET_EDITORPAGEID"
+    | "SET_PREVIEWPAGEDATA";
   payload: {
     isUpdate?: boolean;
+    isEditorPage?: boolean;
     editorPageId?: number;
     previewPageData?: Article;
   };
@@ -26,6 +32,7 @@ export const editorPageContext = createContext({} as EditorPageContextType);
 
 const initialState: State = {
   isUpdate: false,
+  isEditorPage: true,
   editorPageId: 0,
   previewPageData: {
     id: 0,
@@ -44,6 +51,11 @@ export const reducer = (state: State, action: Action) => {
       return {
         ...state,
         isUpdate: action.payload.isUpdate as boolean,
+      };
+    case "TOGGLE_ISEDITORPAGE":
+      return {
+        ...state,
+        isEditorPage: action.payload.isEditorPage as boolean,
       };
     case "SET_EDITORPAGEID":
       return {
