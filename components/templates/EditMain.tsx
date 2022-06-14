@@ -206,7 +206,7 @@ const EditMain: FC = () => {
   }, []);
   return (
     <>
-      <div className="">
+      <div>
         <h1 className="mt-6 mb-6 text-3xl font-extrabold text-center text-neutral-600">
           {editorPageState.isUpdate ? "Update Page" : "Create Page"}
         </h1>
