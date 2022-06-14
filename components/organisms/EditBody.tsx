@@ -66,7 +66,7 @@ const EditBody: FC<Props> = ({
       setContentImg(content.contentImg);
       setContentBody(content.contentBody);
     }
-  }, [content]);
+  }, [content, editorPageState.isEditorPage]);
 
   return (
     <>

@@ -7,9 +7,18 @@ import Layout from "../components/organisms/Layout";
 import { useEditorContext } from "../lib/useEditorPage";
 
 const Preview: FC = () => {
-  const { editorPageState } = useEditorContext();
+  const { editorPageState, setEditorPageState } = useEditorContext();
   const { id, title, summary, imgPath, createdAt, updatedAt, body } =
     editorPageState.previewPageData;
+
+  const toggleIsEditorPage = () => {
+    setEditorPageState({
+      type: "TOGGLE_ISEDITORPAGE",
+      payload: {
+        isEditorPage: true,
+      },
+    });
+  };
   return (
     <>
       <Layout tabTitle="Preview">
@@ -40,7 +49,9 @@ const Preview: FC = () => {
                     d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
                   />
                 </svg>
-                <a data-testid="back-edit">編集画面に戻る</a>
+                <a data-testid="back-edit" onClick={toggleIsEditorPage}>
+                  編集画面に戻る
+                </a>
               </div>
             </Link>
           </div>
